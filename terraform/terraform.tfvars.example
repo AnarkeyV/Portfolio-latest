@@ -1,0 +1,3 @@
+project_name = "portfolio-latest"
+environment  = "local"
+domain_name  = "khairulrizal.qzz.io"
