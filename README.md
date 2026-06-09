@@ -1,126 +1,239 @@
 # 🚀 Khairul Rizal — DevOps & Cloud Support Portfolio
 
+[![Portfolio CI Check](https://github.com/AnarkeyV/Portfolio-latest/actions/workflows/portfolio-check.yml/badge.svg)](https://github.com/AnarkeyV/Portfolio-latest/actions/workflows/portfolio-check.yml)
 [![Python](https://img.shields.io/badge/Python-3.13-blue.svg)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-Portfolio%20App-green.svg)](https://flask.palletsprojects.com/)
+[![Flask](https://img.shields.io/badge/Flask-Portfolio-green.svg)](https://flask.palletsprojects.com/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-blue.svg)](https://www.docker.com/)
 [![Cloudflare Tunnel](https://img.shields.io/badge/Cloudflare-Tunnel-orange.svg)](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)
-[![Hosted Locally](https://img.shields.io/badge/Hosted%20On-Windows%20Laptop-informational.svg)](#deployment-architecture)
-[![Live Site](https://img.shields.io/website?url=https%3A%2F%2Fkhairulrizal.qzz.io&label=Live%20Site)](https://khairulrizal.qzz.io)
+[![Kubernetes](https://img.shields.io/badge/Minikube-Kubernetes-326CE5.svg)](https://minikube.sigs.k8s.io/)
+[![Ansible](https://img.shields.io/badge/Ansible-Automation-black.svg)](https://www.ansible.com/)
+[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC.svg)](https://www.terraform.io/)
 
 ---
 
-## 🌐 Live Website
+## 🌐 Live Portfolio
 
 | Environment | URL | Hosting Method |
 |------------|-----|----------------|
 | **Production** | [https://khairulrizal.qzz.io](https://khairulrizal.qzz.io) | Windows laptop + Docker Compose + Cloudflare Tunnel |
-| **Repository** | [https://github.com/AnarkeyV/Portfolio-latest](https://github.com/AnarkeyV/Portfolio-latest) | Public GitHub repository |
+| **Repository** | [https://github.com/AnarkeyV/Portfolio-latest](https://github.com/AnarkeyV/Portfolio-latest) | GitHub |
 
 ---
 
 ## 📌 Project Overview
 
-This is my personal **DevOps / Cloud Support portfolio website**, built with Flask and containerised with Docker.
+This repository contains my personal DevOps and Cloud Support portfolio website.
 
-The project started from an earlier Flask learning exercise, but has since been migrated into a cleaner standalone portfolio repository called **Portfolio-latest**. The live website is now self-hosted from my local Windows laptop using Docker Compose and exposed securely to the internet through **Cloudflare Tunnel**.
+It started as a Flask portfolio project, but has since been cleaned up and migrated into a dedicated portfolio repository. The live website is currently self-hosted from a Windows laptop using Docker Compose and exposed securely to the public through Cloudflare Tunnel.
 
-The goal of this project is not just to show a webpage. It is also to demonstrate practical operational ownership:
+The repository also includes supporting DevOps showcase folders for:
 
-- building and running a Flask application
-- containerising the app with Docker
-- managing a live deployment from a local machine
-- exposing the app publicly without router port forwarding
-- troubleshooting Docker, networking, DNS, Cloudflare Tunnel, and Windows service/startup issues
-- keeping secrets and local database files out of GitHub
-- maintaining clean documentation and a public project repository
+- GitHub Actions CI
+- Docker and Docker Compose
+- Local Kubernetes testing with Minikube
+- Ansible local deployment automation
+- Terraform infrastructure-as-code planning
+
+The goal of this project is not only to present my portfolio, but also to demonstrate practical DevOps workflows around deployment, automation, documentation, containerisation, and operational troubleshooting.
 
 ---
 
-## 🧭 Deployment Architecture
+## 🧭 Current Production Architecture
 
 ```text
 Visitor
-  │
-  ▼
-https://khairulrizal.qzz.io
-  │
-  ▼
-Cloudflare DNS / Cloudflare Tunnel
-  │
-  ▼
-Windows Laptop
-  │
-  ▼
-Docker Desktop
-  │
-  ▼
+  ↓
+khairulrizal.qzz.io
+  ↓
+Cloudflare
+  ↓
+Cloudflare Tunnel
+  ↓
+Windows laptop
+  ↓
 Docker Compose
-  │
-  ▼
+  ↓
 Flask container
-  │
-  ▼
-http://localhost:5001
+  ↓
+Portfolio website
 ```
-
-### Why this setup?
-
-Instead of using the previous AWS EC2-based deployment idea, this current version is hosted from a local Windows laptop. Cloudflare Tunnel allows the site to be public without opening router ports or exposing the home network directly.
-
-This makes the project a useful learning exercise for:
-
-- local hosting
-- reverse tunnelling
-- Docker-based deployment
-- basic production-style troubleshooting
-- service availability checks
-- operational documentation
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Category | Tools / Technologies |
-|---------|----------------------|
-| Backend | Flask, Python |
-| Frontend | HTML, CSS, Jinja2 |
-| Database | SQLite, SQLAlchemy |
+| Area | Technologies |
+|------|--------------|
+| Web App | Flask, Python, HTML, CSS, Jinja2 |
 | Containerisation | Docker, Docker Compose |
 | Hosting | Windows laptop, Docker Desktop |
-| Public Access | Cloudflare Tunnel, Cloudflare DNS |
-| Version Control | Git, GitHub |
-| Operations | PowerShell, SSH, health checks, local runbook |
-| Security / App Hardening | Flask-Talisman, Flask-Limiter, `.env` ignored from Git |
+| Public Access | Cloudflare Tunnel |
+| CI/CD | GitHub Actions |
+| Kubernetes Lab | Minikube, kubectl, Kubernetes manifests |
+| Automation | Ansible |
+| Infrastructure as Code | Terraform |
+| Database | SQLite |
+| Security / Operations | Environment variables, `.gitignore`, health endpoint, deployment documentation |
+| Version Control | Git, GitHub, SSH authentication |
 
 ---
 
-## ✨ Website Features
+## ✅ DevOps Skills Demonstrated
 
-- Clean employer-facing portfolio homepage
-- Dark navy / gold visual theme
-- Circular profile image
-- Clickable square project cards
-- Links to GitHub projects
-- Skills and background section
-- Contact section
-- Flask `/health` endpoint
-- Scratchpad route from earlier Flask learning exercise
-- Docker Compose deployment
+| Skill Area | How It Is Demonstrated |
+|-----------|-------------------------|
+| **CI/CD** | Safe GitHub Actions workflow validates Python dependencies, Flask syntax, and Docker image build |
+| **Containerisation** | Flask app runs inside Docker using Docker Compose |
+| **Self-hosting** | Website runs from a local Windows machine exposed through Cloudflare Tunnel |
+| **Kubernetes** | `k8s/` folder contains Minikube-ready manifests for Deployment, Service, Secret, probes, and replicas |
+| **Ansible** | `ansible/` folder contains a local deployment playbook for Docker Compose |
+| **Terraform** | `terraform/` folder documents future infrastructure-as-code structure and migration planning |
+| **Operational troubleshooting** | Project involved debugging Docker Desktop, SSH, Cloudflare Tunnel, GitHub authentication, and repo migration |
+| **Documentation** | Each DevOps component has its own README and clear usage instructions |
 
 ---
 
-## 📂 Featured Portfolio Projects
+## 🔄 CI/CD Workflow
 
-The website highlights the following projects:
+This repo includes a safe GitHub Actions workflow:
 
-| Project | Focus |
-|--------|-------|
-| **The Shirt Bar Capstone** | Azure, AKS, ACR, Terraform, Kubernetes, GitHub Actions, Flask |
-| **Job Scraper Service** | FastAPI, SQLite, Docker, GitHub Actions, Jenkins, Prometheus, Grafana, Ansible |
-| **Chaos Engineering Sandbox** | FastAPI, Docker, Kubernetes, Kind, PostgreSQL, Redis, Prometheus, Grafana |
-| **DevOpsTask CI/CD** | Flask, Docker, Azure DevOps, Jenkins, Kubernetes, Terraform |
-| **Portfolio-latest** | Flask, Docker Compose, Cloudflare Tunnel, Windows self-hosting |
-| **GitHub Project Hub** | Central GitHub profile for DevOps and Cloud Support learning projects |
+```text
+.github/workflows/portfolio-check.yml
+```
+
+The workflow performs:
+
+1. Repository checkout
+2. Python setup
+3. Dependency installation
+4. Flask syntax validation
+5. Docker image build validation
+
+This workflow is intentionally safe.
+
+It does **not**:
+
+- Deploy to AWS
+- Reload PythonAnywhere
+- Push to Docker Hub
+- Modify Cloudflare
+- Touch the live Windows-hosted site
+
+This prevents accidental deployment to older environments while still demonstrating CI/CD knowledge.
+
+---
+
+## 🐳 Docker Compose Hosting
+
+The live site runs using Docker Compose.
+
+Main files:
+
+| File | Purpose |
+|------|---------|
+| `Dockerfile` | Builds the Flask app container |
+| `docker-compose.yml` | Runs the Flask container and maps ports |
+| `.dockerignore` | Keeps unnecessary files out of the Docker build context |
+
+Current local container flow:
+
+```text
+Docker Desktop
+  ↓
+docker compose up -d --build
+  ↓
+Flask app inside container
+  ↓
+localhost:5001
+```
+
+The Cloudflare Tunnel points to:
+
+```text
+http://localhost:5001
+```
+
+---
+
+## ☸️ Local Kubernetes / Minikube Lab
+
+The `k8s/` folder contains a lightweight Kubernetes lab designed for Minikube.
+
+Files:
+
+| File | Purpose |
+|------|---------|
+| `k8s/deployment.yaml` | Runs the Flask portfolio as a Kubernetes Deployment |
+| `k8s/service.yaml` | Exposes the app locally using a NodePort Service |
+| `k8s/secret.example.yaml` | Example Kubernetes Secret for `SECRET_KEY` |
+| `k8s/README.md` | Full Minikube usage guide |
+
+This demonstrates:
+
+- Deployments
+- Services
+- Replicas
+- Container ports
+- Secrets
+- Readiness probes
+- Liveness probes
+- Basic `kubectl` workflow
+
+Important: this is a local Kubernetes learning/demo setup. The live production website is currently hosted through Docker Compose and Cloudflare Tunnel.
+
+---
+
+## 🤖 Ansible Automation
+
+The `ansible/` folder contains a simple local deployment playbook.
+
+Files:
+
+| File | Purpose |
+|------|---------|
+| `ansible/deploy-local.yml` | Runs Docker Compose deployment commands through Ansible |
+| `ansible/README.md` | Documents the Ansible workflow and usage |
+
+The playbook demonstrates:
+
+- Basic Ansible playbook structure
+- Localhost automation
+- Repeatable deployment commands
+- Docker Compose deployment workflow
+- Deployment validation
+
+Manual command being automated:
+
+```bash
+docker compose up -d --build
+```
+
+---
+
+## 🏗️ Terraform Infrastructure-as-Code Showcase
+
+The `terraform/` folder contains a lightweight Terraform showcase.
+
+Files:
+
+| File | Purpose |
+|------|---------|
+| `terraform/main.tf` | Main Terraform configuration and project metadata |
+| `terraform/variables.tf` | Input variables for project name, environment, and domain |
+| `terraform/outputs.tf` | Outputs describing current and future infrastructure |
+| `terraform/terraform.tfvars.example` | Example Terraform variable values |
+| `terraform/README.md` | Full Terraform showcase documentation |
+
+This Terraform folder is not currently used to deploy the live site.
+
+Instead, it shows infrastructure-as-code awareness and future planning for possible migration to:
+
+- Azure VM
+- Azure Container Apps
+- Azure Kubernetes Service
+- AWS EC2
+- AWS ECS
+- Cloudflare-managed DNS / tunnel resources
 
 ---
 
@@ -128,56 +241,38 @@ The website highlights the following projects:
 
 ```text
 Portfolio-latest/
-├── flask_app.py              # Main Flask application
-├── requirements.txt          # Python dependencies
-├── Dockerfile                # Docker image definition
-├── docker-compose.yml        # Local container runtime configuration
-├── deployment.yaml           # Kubernetes manifest retained for learning/reference
-├── startup.txt               # Startup notes
-├── .dockerignore             # Docker ignore rules
-├── .gitignore                # Git ignore rules for secrets, databases, local files
 ├── .github/
-│   └── workflows/            # GitHub Actions workflows retained for reference
+│   └── workflows/
+│       └── portfolio-check.yml
+├── ansible/
+│   ├── deploy-local.yml
+│   └── README.md
+├── k8s/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── secret.example.yaml
+│   └── README.md
 ├── migrations/
-│   ├── README
-│   ├── alembic.ini
-│   ├── env.py
-│   └── script.py.mako
 ├── static/
-│   └── profile.jpg           # Profile image
+│   └── profile.jpg
 ├── templates/
-│   ├── profile.html          # Main portfolio homepage
-│   ├── main_page.html        # Scratchpad page
-│   └── login_page.html       # Login page
+│   ├── login_page.html
+│   ├── main_page.html
+│   └── profile.html
+├── terraform/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── terraform.tfvars.example
+│   └── README.md
+├── .dockerignore
+├── .gitignore
+├── Dockerfile
+├── docker-compose.yml
+├── flask_app.py
+├── requirements.txt
+├── startup.txt
 └── README.md
-```
-
----
-
-## 🔐 Files intentionally ignored
-
-The repository intentionally excludes local secrets and generated runtime files.
-
-```text
-.env
-*.db
-instance/
-__pycache__/
-*.pyc
-*.backup
-*_backup_*.html
-migrations/versions/
-```
-
-Examples of files that may exist locally but should **not** be pushed:
-
-```text
-.env
-comments.db
-dummyempty.db
-instance/comments.db
-flask_app.py.backup
-templates/profile_backup_old.html
 ```
 
 ---
@@ -189,65 +284,38 @@ templates/profile_backup_old.html
 - Git
 - Python 3.13+
 - Docker Desktop
-- PowerShell or Terminal
+- Docker Compose
 
-### Clone the repository
+---
+
+### Clone the Repository
+
+```bash
+git clone git@github.com:AnarkeyV/Portfolio-latest.git
+cd Portfolio-latest
+```
+
+Or using HTTPS:
 
 ```bash
 git clone https://github.com/AnarkeyV/Portfolio-latest.git
 cd Portfolio-latest
 ```
 
-### Create a `.env` file
+---
 
-Create a local `.env` file:
+### Create Environment File
 
-```env
-SECRET_KEY=replace-this-with-your-own-secret-key
+Create a `.env` file:
+
+```bash
+SECRET_KEY=replace-this-with-a-secure-secret
 FLASK_ENV=production
 ```
 
-Do not commit `.env` to GitHub.
-
-### Run with Python
-
-```bash
-python -m venv venv
-```
-
-Windows PowerShell:
-
-```powershell
-.\venv\Scripts\Activate.ps1
-```
-
-macOS / Linux:
-
-```bash
-source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run the app:
-
-```bash
-flask --app flask_app run --host=0.0.0.0 --port=5000
-```
-
-Open:
-
-```text
-http://localhost:5000
-```
+The `.env` file is ignored by Git and should not be committed.
 
 ---
-
-## 🐳 Docker Deployment
 
 ### Run with Docker Compose
 
@@ -255,25 +323,21 @@ http://localhost:5000
 docker compose up -d --build
 ```
 
-The app is exposed on:
+Open locally:
 
 ```text
 http://localhost:5001
 ```
 
-### Check running containers
+Or from another device on the same network:
 
-```bash
-docker compose ps
+```text
+http://<windows-laptop-ip>:5001
 ```
 
-### View logs
+---
 
-```bash
-docker compose logs -f
-```
-
-### Stop the app
+### Stop the App
 
 ```bash
 docker compose down
@@ -281,141 +345,140 @@ docker compose down
 
 ---
 
-## 🌍 Current Production Hosting
+## 📡 API / App Endpoints
 
-The production site currently runs from:
-
-```text
-C:\Users\Khairul Rizal\Projects\Portfolio-latest
-```
-
-The container is started with:
-
-```powershell
-docker compose up -d --build
-```
-
-The public domain is routed through Cloudflare Tunnel:
-
-```text
-https://khairulrizal.qzz.io
-```
-
-The tunnel points to:
-
-```text
-http://localhost:5001
-```
-
----
-
-## 🧪 Health Checks and Troubleshooting
-
-### Check the app locally
-
-```powershell
-curl http://localhost:5001
-```
-
-### Check the health endpoint
-
-```powershell
-curl http://localhost:5001/health
-```
-
-### Check Docker
-
-```powershell
-docker ps
-docker compose ps
-```
-
-### Rebuild after code changes
-
-```powershell
-docker compose up -d --build
-```
-
-### Common issues
-
-| Symptom | Likely Cause | Fix |
-|--------|--------------|-----|
-| Website shows **502** | Cloudflare Tunnel is connected, but Flask/Docker is not responding | Start Docker Desktop and run `docker compose up -d` |
-| Website shows **1033** | Cloudflare Tunnel is not connected | Start/restart the Cloudflare Tunnel task/service |
-| `localhost:5001` does not load | Flask container is not running | Run `docker compose ps` and rebuild if needed |
-| Docker command fails after reboot | Docker Desktop has not started yet | Log in to Windows and wait for Docker Desktop |
-| Git push asks for credentials | Windows Git credential manager needs login | Push from Windows desktop session and sign in to GitHub |
-
----
-
-## 📡 API Endpoints
-
-| Endpoint | Method | Description |
-|---------|--------|-------------|
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
 | `/` | GET | Portfolio homepage |
-| `/health` | GET | App/database health check |
-| `/metrics` | GET | Metrics endpoint |
-| `/scratchpad` | GET | Scratchpad comments page |
-| `/scratchpad` | POST | Submit scratchpad comment |
-| `/login/` | GET/POST | Login page |
-| `/logout/` | GET | Logout |
+| `/health` | GET | Health check endpoint |
+| `/metrics` | GET | Prometheus metrics endpoint / metrics availability |
+| `/scratchpad` | GET / POST | Comments scratchpad page |
+| `/login/` | GET / POST | Login page |
+| `/logout/` | GET | Logout route |
 | `/send_contact` | POST | Contact form endpoint |
 
 ---
 
-## 🧠 DevOps / Cloud Support Skills Demonstrated
+## 🔐 Repository Safety
 
-| Skill Area | Demonstrated Through |
-|-----------|----------------------|
-| Containerisation | Dockerfile, Docker Compose, local container deployment |
-| Deployment Troubleshooting | Docker Desktop, Cloudflare Tunnel, port mapping, local networking |
-| Version Control | New clean GitHub repo, Git history reset, `.gitignore` cleanup |
-| Operational Thinking | Health checks, restart workflow, issue diagnosis |
-| Security Awareness | `.env` ignored, database files excluded, no router port forwarding |
-| Documentation | README cleanup, runbook-style troubleshooting, clear project structure |
-| Cloud / Networking Concepts | DNS routing, tunnel-based public access, HTTP reverse proxy style flow |
+This repository intentionally ignores local secrets, databases, and runtime files.
+
+Ignored examples:
+
+```text
+.env
+*.db
+instance/
+__pycache__/
+*.backup
+*_backup_*.html
+migrations/versions/
+```
+
+This keeps the public repository clean and avoids exposing local runtime data.
 
 ---
 
-## 🧹 Migration Notes
+## 🧪 Useful Commands
 
-This repository replaces the earlier bootcamp-style repository:
+### Check Git Status
 
-```text
-AnarkeyV/flask-portfolio
+```bash
+git status
 ```
 
-The current clean repository is:
+### Rebuild the Live Container
 
-```text
-AnarkeyV/Portfolio-latest
+```bash
+docker compose up -d --build
 ```
 
-The previous README referenced AWS EC2, PythonAnywhere staging, Docker Hub image pulls, and the old `flask-portfolio` repository. Those references have been removed or replaced to reflect the current setup:
+### Check Running Containers
+
+```bash
+docker compose ps
+```
+
+### View Logs
+
+```bash
+docker compose logs -f
+```
+
+### Push Updates
+
+```bash
+git add .
+git commit -m "Update portfolio"
+git push
+```
+
+---
+
+## 🧯 Troubleshooting Notes
+
+| Symptom | Likely Cause | Fix |
+|--------|--------------|-----|
+| Cloudflare shows Error 1033 | Tunnel is not connected | Start Cloudflare Tunnel / scheduled task |
+| Cloudflare shows Error 502 | Tunnel is connected but Flask app is unavailable | Start Docker Desktop and container |
+| Site does not load locally | Container is stopped | Run `docker compose up -d --build` |
+| Docker command fails on Windows | Docker Desktop is not running | Open Docker Desktop |
+| GitHub push asks for browser login | HTTPS remote / credential issue | Use GitHub SSH remote |
+| PythonAnywhere changed unexpectedly | Old workflow issue | Remove unsafe workflow files |
+
+---
+
+## 🧠 Why This Project Matters
+
+This project demonstrates more than a static personal website.
+
+It shows a realistic small-scale DevOps workflow:
 
 ```text
-Windows laptop + Docker Compose + Cloudflare Tunnel
+Build a Flask app
+→ Containerise it
+→ Host it locally
+→ Expose it securely
+→ Add CI validation
+→ Add Kubernetes lab files
+→ Add Ansible automation
+→ Add Terraform planning
+→ Document the full setup
 ```
+
+It also reflects practical operational troubleshooting, including:
+
+- Windows hosting
+- Docker Desktop behaviour
+- SSH access from MacBook to Windows
+- Cloudflare Tunnel setup
+- GitHub SSH authentication
+- Safe migration from an older bootcamp repo
+- Removal of outdated deployment workflows
 
 ---
 
 ## 🔮 Future Improvements
 
-- Add proper automated CI checks for linting and tests
-- Add a dedicated `/resume` download route
-- Move contact form configuration fully into environment variables
-- Improve mobile navigation further
-- Add uptime monitoring
+Possible future improvements:
+
+- Add automated tests for Flask routes
+- Add a safer contact form configuration
+- Add GitHub Actions test matrix
+- Add Docker healthcheck
+- Add Cloudflare Tunnel documentation
 - Add screenshots to README
-- Add GitHub Actions workflow for Docker image build validation
-- Consider moving production hosting later to a Linux mini server or cloud VM
+- Add optional Linux server deployment guide
+- Convert Terraform showcase into real Cloudflare or Azure provisioning
+- Add monitoring dashboard documentation
+- Add release tagging
 
 ---
 
 ## 📬 Contact
 
 | Platform | Link |
-|---------|------|
+|----------|------|
 | Portfolio | [https://khairulrizal.qzz.io](https://khairulrizal.qzz.io) |
 | GitHub | [https://github.com/AnarkeyV](https://github.com/AnarkeyV) |
 | LinkedIn | [https://www.linkedin.com/in/khairulrizalsg/](https://www.linkedin.com/in/khairulrizalsg/) |
@@ -429,6 +492,4 @@ This project is open source and available under the MIT License.
 
 ---
 
-Built as part of my DevOps / Cloud Support learning journey.
-
-_Last updated: June 2026_
+Built as part of my DevOps and Cloud Support learning journey.
