@@ -1,0 +1,8 @@
+*.db
+*.pyc
+__pycache__/
+.env
+config.py
+.git
+migrations/versions/
+data-alloy

@@ -1,0 +1,23 @@
+
+# Python
+*.pyc
+__pycache__/
+
+# Environment / secrets
+.env
+config.py
+
+# Databases and local app data
+*.db
+data/*.db
+instance/
+
+# Flask / migrations
+migrations/versions/
+
+# Backups
+*.backup
+*_backup_*.html
+
+# Local copied folders
+flask-portfolio/
