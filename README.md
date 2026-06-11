@@ -370,6 +370,22 @@ python agents/portfolio_health_agent.py
 
 The homepage reads the generated JSON file and updates the Live Ops Status card.
 
+### Scheduled Refresh
+
+On the Windows host, the health agent is scheduled to run three times daily using Windows Task Scheduler.
+
+Current schedule:
+
+| Task | Time |
+|---|---|
+| Portfolio Health Agent | 09:00 |
+| Portfolio Health Agent - Afternoon | 15:00 |
+| Portfolio Health Agent - Night | 21:00 |
+
+The scheduled task uses a local helper script named `run_health_agent_hidden.vbs` to run the health agent silently in the background.
+
+This helper file is intentionally ignored by Git because it is specific to the Windows host environment.
+
 ---
 
 ## 🔄 GitHub Actions CI Check
