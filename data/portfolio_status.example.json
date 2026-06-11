@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-06-11T16:03:12",
+  "portfolio": {
+    "url": "https://khairulrizal.qzz.io",
+    "status_code": 200,
+    "ok": true,
+    "response_time_ms": 465.36
+  },
+  "health_endpoint": {
+    "url": "https://khairulrizal.qzz.io/health",
+    "status_code": 200,
+    "ok": true,
+    "response_time_ms": 426.17
+  },
+  "docker_compose": {
+    "ok": true,
+    "raw_output": "{\"Command\":\"\\\"flask run --host=0.\u2026\\\"\",\"CreatedAt\":\"2026-06-11 14:07:35 +0800 +08\",\"ExitCode\":0,\"Health\":\"\",\"ID\":\"6d1a6aaafea5\",\"Image\":\"portfolio-latest-web\",\"Labels\":\"com.docker.compose.config-hash=2b7256714e4bac3477794d5d930bbad40f7e17dbf8be7cbba90223c89244ff4d,com.docker.compose.depends_on=,com.docker.compose.oneoff=False,com.docker.compose.project=portfolio-latest,com.docker.compose.project.config_files=C:\\\\Users\\\\Khairul Rizal\\\\Projects\\\\Portfolio-latest\\\\docker-compose.yml,com.docker.compose.project.working_dir=C:\\\\Users\\\\Khairul Rizal\\\\Projects\\\\Portfolio-latest,desktop.docker.io/ports/5000/tcp=:5001,com.docker.compose.container-number=1,desktop.docker.io/binds/0/Source=C:\\\\Users\\\\Khairul Rizal\\\\Projects\\\\Portfolio-latest\\\\instance,desktop.docker.io/binds/0/SourceKind=hostFile,desktop.docker.io/ports.scheme=v2,com.docker.compose.image=sha256:132125668323f75d0b488fc8f29aa4567fe38b5285f1a7b9bb805bd161b1dcfe,com.docker.compose.version=5.1.4,com.docker.compose.replace=web-1,com.docker.compose.service=web,desktop.docker.io/binds/0/Target=/app/instance\",\"LocalVolumes\":\"0\",\"Mounts\":\"/run/desktop/m\u2026\",\"Name\":\"portfolio-latest-web-1\",\"Names\":\"portfolio-latest-web-1\",\"Networks\":\"portfolio-latest_default\",\"Ports\":\"0.0.0.0:5001-\\u003e5000/tcp, [::]:5001-\\u003e5000/tcp\",\"Project\":\"portfolio-latest\",\"Publishers\":[{\"URL\":\"0.0.0.0\",\"TargetPort\":5000,\"PublishedPort\":5001,\"Protocol\":\"tcp\"},{\"URL\":\"::\",\"TargetPort\":5000,\"PublishedPort\":5001,\"Protocol\":\"tcp\"}],\"RunningFor\":\"2 hours ago\",\"Service\":\"web\",\"Size\":\"0B\",\"State\":\"running\",\"Status\":\"Up 2 hours\"}"
+  },
+  "ai_summary": "Here is a summary of the portfolio health check in 3 short sentences:\n\nThe portfolio health check indicates that it has been successfully started,\u001b[8D\u001b[K\nstarted, with successful connections to its URL and Docker Compose endpoint\u001b[8D\u001b[K\nendpoint. The Docker Compose output shows that everything is working as exp\u001b[3D\u001b[K\nexpected, including running containers, publishing services, and maintainin\u001b[10D\u001b[K\nmaintaining a healthy status. Overall, this suggests that the DevOps enviro\u001b[6D\u001b[K\nenvironment is in a good state."
+}

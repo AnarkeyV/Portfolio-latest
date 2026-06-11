@@ -21,3 +21,4 @@ migrations/versions/
 
 # Local copied folders
 flask-portfolio/
+data/portfolio_status.json
