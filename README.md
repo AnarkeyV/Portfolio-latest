@@ -37,10 +37,12 @@ This project is more than a personal landing page. It is a practical DevOps envi
 - [Why I Built This](#why-i-built-this)
 - [Key Features](#key-features)
 - [Live Portfolio Evidence](#live-portfolio-evidence)
+- [Screenshots](#screenshots)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
 - [Application Routes](#application-routes)
 - [Live Ops Status and Local AI Monitoring](#live-ops-status-and-local-ai-monitoring)
+- [Scheduled Health Agent Refresh](#scheduled-health-agent-refresh)
 - [GitHub Actions CI Check](#github-actions-ci-check)
 - [Docker Compose Hosting](#docker-compose-hosting)
 - [Cloudflare Tunnel Deployment](#cloudflare-tunnel-deployment)
@@ -74,10 +76,12 @@ This project is more than a personal landing page. It is a practical DevOps envi
 | Local health monitoring agent | Completed |
 | Ollama local AI integration | Completed |
 | Deterministic status summary | Completed |
+| Windows Task Scheduler refresh | Completed |
 | Kubernetes local lab manifests | Completed |
 | Ansible local deployment playbook | Completed |
 | Terraform IaC showcase folder | Completed |
 | README documentation | Updated |
+| Evidence screenshots | Added |
 | Old AWS / PythonAnywhere workflow removal | Completed |
 | SSH-based Windows maintenance from MacBook | Completed |
 
@@ -103,8 +107,9 @@ The project includes:
 - Terraform infrastructure showcase
 - Local AI-powered health monitoring
 - Live operational status card on the homepage
+- Evidence screenshots for deployment, CI and runtime validation
 
-The live site is hosted on a Windows laptop and maintained remotely from a MacBook over SSH. This setup was intentionally chosen to practise real-world troubleshooting across operating systems, networking, local hosting, container runtime behaviour, Git credentials, public tunnelling, and documentation.
+The live site is hosted on a Windows laptop and maintained remotely from a MacBook over SSH. This setup was intentionally chosen to practise real-world troubleshooting across operating systems, networking, local hosting, container runtime behaviour, Git credentials, public tunnelling, scheduled tasks, and documentation.
 
 ---
 
@@ -121,6 +126,7 @@ The goal was to build something that shows what I am learning in a more honest a
 - not just “I know monitoring”, but showing a live status card on the homepage
 - not just “I know automation”, but including Ansible and Terraform examples
 - not just “I am interested in AI”, but using a local AI model carefully as a support tool
+- not just “I can host a website”, but keeping it running from my own Windows laptop through Cloudflare Tunnel
 
 This project reflects my transition from operations-heavy work into DevOps and Cloud Support. My previous background trained me to care about uptime, service impact, escalation, documentation, and troubleshooting. This portfolio turns those habits into a technical project.
 
@@ -135,6 +141,7 @@ This project reflects my transition from operations-heavy work into DevOps and C
 | **Cloudflare Tunnel** | Public domain routes traffic securely to the local app |
 | **Live Ops Status Card** | Homepage displays local app, health endpoint and Docker Compose status |
 | **Local AI Health Agent** | Python agent checks health status and uses Ollama for experimental observations |
+| **Scheduled Refresh** | Windows Task Scheduler runs the health agent three times daily |
 | **Deterministic Health Summary** | Public status message is generated from factual checks, not AI guesses |
 | **GitHub Actions CI** | Safe workflow validates Python syntax and Docker build |
 | **Kubernetes Lab** | Local Minikube-ready Kubernetes manifests included |
@@ -142,6 +149,7 @@ This project reflects my transition from operations-heavy work into DevOps and C
 | **Terraform Showcase** | IaC structure included for future hosting planning |
 | **Remote Maintenance** | Windows host can be managed from MacBook through SSH |
 | **Clickable Project Cards** | Portfolio cards open the related GitHub repositories |
+| **Evidence Screenshots** | README includes screenshots for live site, CI and runtime validation |
 
 ---
 
@@ -168,6 +176,34 @@ Example status message:
 ```text
 Portfolio is healthy. The local Flask app, health endpoint, and Docker Compose service are all responding successfully.
 ```
+
+---
+
+## 📸 Screenshots
+
+Screenshots were captured to document the current working portfolio, project showcase, CI validation and Docker Compose runtime.
+
+### Homepage Hero
+
+![Homepage Hero](documentation/screenshots/homepage-hero.png)
+
+### Projects Section
+
+![Projects Section](documentation/screenshots/projects-section.png)
+
+### Live Ops Status
+
+![Live Ops Status](documentation/screenshots/live-ops-status.png)
+
+### GitHub Actions CI
+
+![GitHub Actions CI](documentation/screenshots/github-actions-ci.png)
+
+### Docker Compose Running
+
+![Docker Compose Running](documentation/screenshots/docker-compose-running.png)
+
+> These screenshots provide evidence of the live portfolio, project showcase, local monitoring card, GitHub Actions validation, and Docker Compose runtime.
 
 ---
 
@@ -280,10 +316,11 @@ The current architecture uses local self-hosting with public access through Clou
 | CI Validation | GitHub Actions |
 | Local AI | Ollama, `llama3.2:1b` |
 | Monitoring Agent | Python, Requests, JSON |
+| Task Scheduling | Windows Task Scheduler |
 | Container Orchestration Practice | Kubernetes, Minikube |
 | Automation Practice | Ansible |
 | Infrastructure as Code Showcase | Terraform |
-| Documentation | Markdown, README, folder-level guides |
+| Documentation | Markdown, README, folder-level guides, screenshots |
 
 ---
 
@@ -370,21 +407,29 @@ python agents/portfolio_health_agent.py
 
 The homepage reads the generated JSON file and updates the Live Ops Status card.
 
-### Scheduled Refresh
+---
+
+## 🕒 Scheduled Health Agent Refresh
 
 On the Windows host, the health agent is scheduled to run three times daily using Windows Task Scheduler.
 
 Current schedule:
 
 | Task | Time |
-|---|---|
+|---|---:|
 | Portfolio Health Agent | 09:00 |
 | Portfolio Health Agent - Afternoon | 15:00 |
 | Portfolio Health Agent - Night | 21:00 |
 
-The scheduled task uses a local helper script named `run_health_agent_hidden.vbs` to run the health agent silently in the background.
+The scheduled task uses a local helper script named:
 
-This helper file is intentionally ignored by Git because it is specific to the Windows host environment.
+```text
+run_health_agent_hidden.vbs
+```
+
+This helper script runs the health agent silently in the background so that a Command Prompt window does not appear during the scheduled run.
+
+The helper file is intentionally ignored by Git because it is specific to the Windows host environment.
 
 ---
 
@@ -715,6 +760,13 @@ Portfolio-latest/
 │   └── README.md
 ├── data/
 │   └── portfolio_status.example.json
+├── documentation/
+│   └── screenshots/
+│       ├── homepage-hero.png
+│       ├── projects-section.png
+│       ├── live-ops-status.png
+│       ├── github-actions-ci.png
+│       └── docker-compose-running.png
 ├── k8s/
 │   ├── deployment.yaml
 │   ├── service.yaml
@@ -754,12 +806,13 @@ Portfolio-latest/
 | Public Exposure | Cloudflare Tunnel |
 | CI Validation | GitHub Actions |
 | Health Monitoring | `/health` route, Python checks, status JSON |
+| Scheduled Automation | Windows Task Scheduler |
 | Local AI Experimentation | Ollama, local model observations |
 | Automation | Ansible local deployment playbook |
 | Infrastructure as Code | Terraform showcase structure |
 | Container Orchestration Practice | Kubernetes manifests for local lab |
 | Troubleshooting | Docker Desktop, DNS, Cloudflare 502/1033, Git SSH credentials, Windows paths |
-| Documentation | README, local lab notes, handover-friendly guides |
+| Documentation | README, local lab notes, screenshots, handover-friendly guides |
 | Operations Mindset | Service health, manual control, safe automation, human-in-the-loop AI |
 
 ---
@@ -862,6 +915,31 @@ ssh -T git@github.com
 
 ---
 
+### Scheduled task does not update the status file
+
+Check the scheduled tasks:
+
+```cmd
+schtasks /Query /TN "Portfolio Health Agent" /V /FO LIST
+schtasks /Query /TN "Portfolio Health Agent - Afternoon" /V /FO LIST
+schtasks /Query /TN "Portfolio Health Agent - Night" /V /FO LIST
+```
+
+A successful task result is usually:
+
+```text
+0
+```
+
+Also confirm that:
+
+- the Windows laptop is awake
+- Docker Desktop is running
+- Ollama is available if the AI observation is required
+- the local helper script exists on the Windows host
+
+---
+
 ## 🔐 Security and Safety Notes
 
 This project keeps automation conservative.
@@ -892,13 +970,12 @@ This keeps the project human-in-the-loop and avoids unsafe automation.
 
 Possible next steps:
 
-- schedule the health agent using Windows Task Scheduler
 - add uptime history instead of only the latest status
 - add a private admin-only status page
 - add structured logs for portfolio requests
 - add Prometheus metrics endpoint
 - add Grafana dashboard integration
-- add screenshot evidence section to README
+- add screenshot update checklist
 - add a small incident-history timeline
 - move future services into a homelab environment
 - test the portfolio on a small cloud VM
@@ -923,6 +1000,7 @@ Some of the real issues handled during the project included:
 - understanding Cloudflare 502 and 1033 errors
 - avoiding misleading AI-generated health summaries
 - separating factual monitoring logic from experimental AI observations
+- scheduling the health agent without committing machine-specific helper files
 - documenting the setup clearly enough that it can be repeated later
 
 This is the kind of work I want to keep improving in: building systems, breaking them safely, fixing them, documenting what happened, and making the next run smoother.
