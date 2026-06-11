@@ -22,3 +22,4 @@ migrations/versions/
 # Local copied folders
 flask-portfolio/
 data/portfolio_status.json
+run_health_agent_hidden.vbs
