@@ -9,4 +9,5 @@ services:
       - .env
     volumes:
       - ./instance:/app/instance
+      - ./data:/app/data
     restart: unless-stopped
