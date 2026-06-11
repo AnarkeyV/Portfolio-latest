@@ -15,6 +15,8 @@ import tempfile
 import smtplib
 from email.message import EmailMessage
 from flask import request, jsonify
+import json
+from pathlib import Path
 
 # Startup diagnostics
 import sys
@@ -224,7 +226,19 @@ def health():
 @app.route("/")
 @limiter.exempt
 def profile():
-    return render_template("profile.html")
+    status_file = Path(__file__).resolve().parent / "data" / "portfolio_status.json"
+    portfolio_status = None
+
+    if status_file.exists():
+        try:
+            portfolio_status = json.loads(status_file.read_text(encoding="utf-8"))
+        except Exception as error:
+            portfolio_status = {
+                "checked_at": "Unavailable",
+                "status_summary": f"Unable to read local status file: {error}",
+            }
+
+    return render_template("profile.html", portfolio_status=portfolio_status)
 
 # ── Comments scratchpad page ──────────────────────────────────────────────────
 @app.route("/scratchpad", methods=["GET", "POST"])
