@@ -8,11 +8,11 @@
 [![Terraform](https://img.shields.io/badge/terraform-IaC%20showcase-7B42BC.svg)](https://www.terraform.io/)
 [![Ansible](https://img.shields.io/badge/ansible-automation-EE0000.svg)](https://www.ansible.com/)
 [![Ollama](https://img.shields.io/badge/ollama-local%20AI-black.svg)](https://ollama.com/)
-[![Status](https://img.shields.io/badge/status-live%20portfolio-success.svg)](#current-project-status)
+[![Status](https://img.shields.io/badge/status-live%20dashboard-success.svg)](#live-status-dashboard)
 
 # 💼 Khairul Rizal — DevOps & Cloud Support Portfolio
 
-A self-hosted DevOps portfolio website running on a **Windows laptop**, containerised with **Docker Compose**, exposed publicly through **Cloudflare Tunnel**, validated with **GitHub Actions**, and enhanced with a lightweight **local AI health monitoring agent**.
+A self-hosted DevOps and Cloud Support portfolio website built with **Flask**, containerised with **Docker Compose**, exposed publicly through **Cloudflare Tunnel**, validated with **GitHub Actions**, and supported by a local health/status monitoring workflow.
 
 Live site:
 
@@ -26,7 +26,7 @@ Repository:
 https://github.com/AnarkeyV/Portfolio-latest
 ```
 
-This project is more than a personal landing page. It is a practical DevOps environment that demonstrates how a small Flask application can be hosted, monitored, documented, automated, and maintained in a realistic home-lab style setup.
+This is not just a static profile page. It is a small, practical DevOps environment that demonstrates application hosting, containerisation, public routing, monitoring, status reporting, CI validation, documentation, and remote maintenance.
 
 ---
 
@@ -37,11 +37,12 @@ This project is more than a personal landing page. It is a practical DevOps envi
 - [Why I Built This](#why-i-built-this)
 - [Key Features](#key-features)
 - [Live Portfolio Evidence](#live-portfolio-evidence)
+- [Live Status Dashboard](#live-status-dashboard)
 - [Screenshots](#screenshots)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
 - [Application Routes](#application-routes)
-- [Live Ops Status and Local AI Monitoring](#live-ops-status-and-local-ai-monitoring)
+- [Health Monitoring Design](#health-monitoring-design)
 - [Scheduled Health Agent Refresh](#scheduled-health-agent-refresh)
 - [GitHub Actions CI Check](#github-actions-ci-check)
 - [Docker Compose Hosting](#docker-compose-hosting)
@@ -54,9 +55,11 @@ This project is more than a personal landing page. It is a practical DevOps envi
 - [Project Structure](#project-structure)
 - [DevOps and Cloud Skills Demonstrated](#devops-and-cloud-skills-demonstrated)
 - [Troubleshooting Notes](#troubleshooting-notes)
-- [Security and Safety Notes](#security-and-safety-notes)
+- [Security and Privacy Notes](#security-and-privacy-notes)
 - [Future Improvements](#future-improvements)
 - [Personal Learning Notes](#personal-learning-notes)
+- [Author](#author)
+- [License](#license)
 
 ---
 
@@ -70,12 +73,15 @@ This project is more than a personal landing page. It is a practical DevOps envi
 | Cloudflare Tunnel public access | Completed |
 | Custom public domain | Completed |
 | GitHub Actions safe CI workflow | Completed |
-| Clickable project cards | Completed |
-| Updated visual design | Completed |
-| Live Ops Status homepage card | Completed |
+| Featured Projects section | Completed |
+| Live Status dashboard page | Completed |
+| Homepage Live Ops Status card | Completed |
 | Local health monitoring agent | Completed |
-| Ollama local AI integration | Completed |
-| Deterministic status summary | Completed |
+| Deterministic public status summary | Completed |
+| Response-time dashboard visuals | Completed |
+| Health timeline visual blocks | Completed |
+| Component status table | Completed |
+| Ollama local AI observation layer | Experimental |
 | Windows Task Scheduler refresh | Completed |
 | Kubernetes local lab manifests | Completed |
 | Ansible local deployment playbook | Completed |
@@ -98,18 +104,21 @@ This portfolio project demonstrates how a Flask-based personal website can be tr
 The project includes:
 
 - Flask web application
+- Jinja-based HTML templates
 - Docker containerisation
 - Docker Compose runtime
 - Cloudflare Tunnel public access
-- GitHub Actions validation
+- GitHub Actions validation workflow
+- Live dashboard-style status page
+- Local health monitoring agent
+- Deterministic health summary logic
+- Optional local AI observation layer using Ollama
 - Kubernetes local lab files
-- Ansible deployment automation
-- Terraform infrastructure showcase
-- Local AI-powered health monitoring
-- Live operational status card on the homepage
-- Evidence screenshots for deployment, CI and runtime validation
+- Ansible deployment automation example
+- Terraform infrastructure showcase folder
+- Evidence screenshots for deployment, CI, runtime, and status validation
 
-The live site is hosted on a Windows laptop and maintained remotely from a MacBook over SSH. This setup was intentionally chosen to practise real-world troubleshooting across operating systems, networking, local hosting, container runtime behaviour, Git credentials, public tunnelling, scheduled tasks, and documentation.
+The live site is hosted on a Windows laptop and maintained remotely from a MacBook over SSH. This setup was intentionally chosen to practise real-world troubleshooting across operating systems, networking, container runtime behaviour, Git credentials, public tunnelling, scheduled tasks, and documentation.
 
 ---
 
@@ -119,16 +128,16 @@ At first, this was supposed to be a simple portfolio cleanup.
 
 Naturally, it became a DevOps side quest.
 
-The goal was to build something that shows what I am learning in a more honest and practical way:
+The goal was to build something that shows what I am learning in a more practical way:
 
 - not just “I know Docker”, but actually running my portfolio in Docker
 - not just “I know CI/CD”, but validating the project with GitHub Actions
-- not just “I know monitoring”, but showing a live status card on the homepage
-- not just “I know automation”, but including Ansible and Terraform examples
-- not just “I am interested in AI”, but using a local AI model carefully as a support tool
+- not just “I know monitoring”, but showing status information from health checks
+- not just “I know automation”, but including Ansible and scheduled health checks
+- not just “I know infrastructure concepts”, but documenting Terraform and Kubernetes learning artefacts
 - not just “I can host a website”, but keeping it running from my own Windows laptop through Cloudflare Tunnel
 
-This project reflects my transition from operations-heavy work into DevOps and Cloud Support. My previous background trained me to care about uptime, service impact, escalation, documentation, and troubleshooting. This portfolio turns those habits into a technical project.
+This project reflects my move from operations-heavy work into DevOps and Cloud Support. My previous background trained me to care about uptime, service impact, escalation, documentation, and troubleshooting. This portfolio turns those habits into a technical project.
 
 ---
 
@@ -136,20 +145,22 @@ This project reflects my transition from operations-heavy work into DevOps and C
 
 | Feature | Description |
 |---|---|
-| **Flask Portfolio App** | Personal portfolio website built with Flask, Jinja, HTML and CSS |
+| **Flask Portfolio App** | Personal portfolio website built with Flask, Jinja, HTML, and CSS |
 | **Docker Compose Hosting** | App runs inside a Docker Compose service on a Windows laptop |
-| **Cloudflare Tunnel** | Public domain routes traffic securely to the local app |
-| **Live Ops Status Card** | Homepage displays local app, health endpoint and Docker Compose status |
-| **Local AI Health Agent** | Python agent checks health status and uses Ollama for experimental observations |
-| **Scheduled Refresh** | Windows Task Scheduler runs the health agent three times daily |
+| **Cloudflare Tunnel** | Public domain routes traffic safely to the local app without opening router ports directly |
+| **Featured Projects Section** | Clean 4-card project showcase with compact highlights and tech tags |
+| **Live Ops Status Card** | Homepage displays local app, health endpoint, and Docker Compose status |
+| **Dashboard-Style Status Page** | `/status` page includes visual status cards, response bars, health timeline blocks, and component status table |
+| **Local Health Agent** | Python agent checks application health and writes status data to JSON |
+| **Scheduled Refresh** | Windows Task Scheduler runs the health agent at planned times |
 | **Deterministic Health Summary** | Public status message is generated from factual checks, not AI guesses |
+| **Local AI Observation Layer** | Optional Ollama layer used only as an experimental observation helper |
 | **GitHub Actions CI** | Safe workflow validates Python syntax and Docker build |
-| **Kubernetes Lab** | Local Minikube-ready Kubernetes manifests included |
+| **Kubernetes Lab** | Local Kubernetes manifests included for deployment practice |
 | **Ansible Playbook** | Local deployment automation example using Docker Compose |
 | **Terraform Showcase** | IaC structure included for future hosting planning |
-| **Remote Maintenance** | Windows host can be managed from MacBook through SSH |
-| **Clickable Project Cards** | Portfolio cards open the related GitHub repositories |
-| **Evidence Screenshots** | README includes screenshots for live site, CI and runtime validation |
+| **Remote Maintenance** | Windows host can be managed from a MacBook through SSH |
+| **Evidence Screenshots** | README includes screenshots for live site, CI, Docker runtime, and status dashboard |
 
 ---
 
@@ -161,15 +172,16 @@ The portfolio is currently reachable through:
 https://khairulrizal.qzz.io
 ```
 
-The website includes a Live Ops Status section showing:
+The website includes:
 
-| Check | Purpose |
+| Area | Purpose |
 |---|---|
-| Local App | Confirms the Flask app is reachable on the Windows host |
-| Health Endpoint | Confirms the Flask `/health` route is responding |
-| Docker Compose | Confirms the local container runtime is running |
-| Status Summary | Displays a deterministic, factual status message |
-| Last Checked | Shows when the local health agent last generated the report |
+| Homepage | Personal profile, skills, featured projects, experience, and contact links |
+| Featured Projects | Compact showcase of practical DevOps and Cloud Support projects |
+| Live Ops Status card | Small homepage status summary from the local health agent |
+| `/status` dashboard | Human-readable operational dashboard for the portfolio service |
+| `/health` endpoint | Machine-readable Flask health endpoint |
+| `/ready` endpoint | Readiness check for local status data availability |
 
 Example status message:
 
@@ -179,21 +191,87 @@ Portfolio is healthy. The local Flask app, health endpoint, and Docker Compose s
 
 ---
 
+## 📊 Live Status Dashboard
+
+The `/status` page has been upgraded from a simple report page into a dashboard-style operational view.
+
+It includes:
+
+- overall status banner
+- local app status card
+- health endpoint status card
+- Docker Compose status card
+- public route status card
+- readiness status card
+- AI layer status card
+- response-time visual bars
+- recent health timeline blocks
+- component status table
+- endpoint explanation cards
+- monitoring architecture explanation
+- public-safety note
+
+The dashboard is intentionally public-safe. It avoids exposing private values such as:
+
+- internal IP addresses
+- Windows usernames
+- local folder paths
+- raw logs
+- container IDs
+- private tunnel names
+- full stack traces
+
+Instead, it displays safe operational labels such as:
+
+```text
+Local App
+Health Endpoint
+Docker Compose
+Public Route
+Readiness
+Status Agent
+```
+
+This keeps the page useful for portfolio visitors while avoiding unnecessary exposure of private environment details.
+
+---
+
 ## 📸 Screenshots
 
-Screenshots were captured to document the current working portfolio, project showcase, CI validation and Docker Compose runtime.
+Screenshots are stored under:
+
+```text
+documentation/screenshots/
+```
+
+Recommended current screenshots:
+
+| Screenshot | Suggested File |
+|---|---|
+| Homepage Hero | `documentation/screenshots/homepage-hero.png` |
+| Featured Projects Section | `documentation/screenshots/featured-projects-section.png` |
+| Live Ops Status Homepage Card | `documentation/screenshots/live-ops-status.png` |
+| Live Status Dashboard | `documentation/screenshots/status-dashboard.png` |
+| GitHub Actions CI | `documentation/screenshots/github-actions-ci.png` |
+| Docker Compose Running | `documentation/screenshots/docker-compose-running.png` |
+
+Example Markdown references:
 
 ### Homepage Hero
 
 ![Homepage Hero](documentation/screenshots/homepage-hero.png)
 
-### Projects Section
+### Featured Projects Section
 
-![Projects Section](documentation/screenshots/projects-section.png)
+![Featured Projects Section](documentation/screenshots/featured-projects-section.png)
 
-### Live Ops Status
+### Live Ops Status Homepage Card
 
 ![Live Ops Status](documentation/screenshots/live-ops-status.png)
+
+### Live Status Dashboard
+
+![Live Status Dashboard](documentation/screenshots/status-dashboard.png)
 
 ### GitHub Actions CI
 
@@ -203,7 +281,7 @@ Screenshots were captured to document the current working portfolio, project sho
 
 ![Docker Compose Running](documentation/screenshots/docker-compose-running.png)
 
-> These screenshots provide evidence of the live portfolio, project showcase, local monitoring card, GitHub Actions validation, and Docker Compose runtime.
+> If any screenshot filename is different in the repository, update the filename above to match the actual file before committing.
 
 ---
 
@@ -232,13 +310,13 @@ The current architecture uses local self-hosting with public access through Clou
           ▼
 ┌────────────────────────────┐
 │ Docker Compose             │
-│ portfolio-latest-web       │
+│ portfolio web service      │
 └─────────┬──────────────────┘
           │
           ▼
 ┌────────────────────────────┐
 │ Flask Portfolio App        │
-│ profile.html + /health     │
+│ profile.html + /status     │
 └────────────────────────────┘
 ```
 
@@ -247,9 +325,9 @@ The current architecture uses local self-hosting with public access through Clou
 ```text
 ┌────────────────────┐
 │ MacBook            │
-│ Terminal / SSH     │
+│ Terminal / VS Code │
 └─────────┬──────────┘
-          │ ssh
+          │ SSH
           ▼
 ┌────────────────────────────┐
 │ Windows Laptop             │
@@ -295,8 +373,8 @@ The current architecture uses local self-hosting with public access through Clou
           │ read by Flask
           ▼
 ┌────────────────────────────┐
-│ Live Ops Status Card       │
-│ Homepage display           │
+│ Homepage Status Card       │
+│ /status Dashboard          │
 └────────────────────────────┘
 ```
 
@@ -314,9 +392,9 @@ The current architecture uses local self-hosting with public access through Clou
 | Public Access | Cloudflare Tunnel |
 | Version Control | Git, GitHub |
 | CI Validation | GitHub Actions |
-| Local AI | Ollama, `llama3.2:1b` |
 | Monitoring Agent | Python, Requests, JSON |
 | Task Scheduling | Windows Task Scheduler |
+| Local AI Experiment | Ollama, local model observation |
 | Container Orchestration Practice | Kubernetes, Minikube |
 | Automation Practice | Ansible |
 | Infrastructure as Code Showcase | Terraform |
@@ -330,7 +408,8 @@ The current architecture uses local self-hosting with public access through Clou
 |---|---|---|
 | `/` | `GET` | Main portfolio homepage |
 | `/health` | `GET` | Health endpoint used by monitoring checks |
-| Other inherited routes | `GET/POST` | Original Flask portfolio app routes from earlier versions |
+| `/ready` | `GET` | Readiness endpoint for status-data availability |
+| `/status` | `GET` | Human-readable live status dashboard |
 
 Example health response:
 
@@ -342,7 +421,7 @@ Example health response:
 
 ---
 
-## 🤖 Live Ops Status and Local AI Monitoring
+## 🩺 Health Monitoring Design
 
 The local health monitoring agent is stored in:
 
@@ -354,26 +433,29 @@ The agent checks:
 
 | Check | Description |
 |---|---|
-| Local Portfolio | Checks `http://localhost:5001` |
-| Local Health Endpoint | Checks `http://localhost:5001/health` |
-| Public Portfolio | Checks the public Cloudflare domain |
-| Public Health Endpoint | Checks the public `/health` endpoint |
+| Local Portfolio | Checks the local Flask app route |
+| Local Health Endpoint | Checks the local `/health` route |
+| Public Portfolio | Checks the public Cloudflare domain when available |
+| Public Health Endpoint | Checks the public `/health` endpoint when available |
 | Docker Compose | Checks the local Docker Compose service |
-| Ollama AI Summary | Generates an experimental local AI observation |
+| Status JSON | Writes latest results for Flask to read |
+| Ollama AI Summary | Optional experimental local observation layer |
 
 ### Important AI Safety Clarification
 
 The AI output is **not** treated as the source of truth.
 
-The public homepage uses:
+The public status display relies on factual values such as:
 
 ```text
+local app check
+health endpoint check
+Docker Compose check
+checked_at timestamp
 status_summary
 ```
 
-This summary is deterministic and generated from factual health-check results.
-
-The local model may still produce experimental observations, but those are not displayed as the main operational truth. This avoids showing hallucinated or over-interpreted incidents on the public website.
+The local model may produce experimental observations, but those observations are not trusted as the main operational truth. This avoids showing hallucinated or over-interpreted incidents on the public website.
 
 ### Health Agent Output
 
@@ -389,11 +471,11 @@ A committed example file may be included as:
 data/portfolio_status.example.json
 ```
 
-The live generated file is local runtime data and may be excluded from normal Git commits.
+The live generated file is runtime data and may be excluded from normal Git commits.
 
 ### Running the Agent
 
-Start Ollama if it is not already running:
+Start Ollama if it is required for the optional AI observation layer:
 
 ```bash
 ollama serve
@@ -405,13 +487,13 @@ Run the health agent:
 python agents/portfolio_health_agent.py
 ```
 
-The homepage reads the generated JSON file and updates the Live Ops Status card.
+The homepage and `/status` dashboard read the generated JSON file.
 
 ---
 
 ## 🕒 Scheduled Health Agent Refresh
 
-On the Windows host, the health agent is scheduled to run three times daily using Windows Task Scheduler.
+On the Windows host, the health agent is scheduled to run using Windows Task Scheduler.
 
 Current schedule:
 
@@ -510,7 +592,13 @@ volumes:
   - ./data:/app/data
 ```
 
-This allows the health agent running on the Windows host to write `data/portfolio_status.json`, while the Flask container reads the same file for the homepage Live Ops Status card.
+This allows the health agent running on the Windows host to write:
+
+```text
+data/portfolio_status.json
+```
+
+while the Flask container reads the same file for the homepage status card and `/status` dashboard.
 
 ---
 
@@ -553,7 +641,7 @@ Flask container
 | Symptom | Possible Cause | First Check |
 |---|---|---|
 | Cloudflare 502 | Local app not responding | `curl http://localhost:5001` |
-| Cloudflare 1033 | Tunnel disconnected | Check Cloudflare Tunnel process/task |
+| Cloudflare 1033 | Tunnel disconnected | Check Cloudflare Tunnel process/service |
 | Site works locally but not publicly | Tunnel or DNS path issue | Check tunnel target |
 | Site works publicly but agent warns | Host self-check or DNS hiccup | Check local and public curl separately |
 
@@ -650,7 +738,7 @@ They are included to demonstrate Terraform structure and future infrastructure p
 - Python 3.13+
 - Git
 - Docker Desktop
-- Ollama
+- Ollama, only if testing the optional AI observation layer
 - VS Code or another editor
 
 Optional for showcase folders:
@@ -723,13 +811,13 @@ The live site is hosted on a Windows laptop, but it can be maintained from a Mac
 Example SSH connection:
 
 ```bash
-ssh "Khairul Rizal"@192.168.0.200
+ssh "<WINDOWS_USERNAME>"@<WINDOWS_HOST_IP>
 ```
 
 Move into the project folder:
 
 ```cmd
-cd "C:\Users\Khairul Rizal\Projects\Portfolio-latest"
+cd "C:\Users\<WINDOWS_USERNAME>\Projects\Portfolio-latest"
 ```
 
 Common commands:
@@ -743,6 +831,8 @@ git add .
 git commit -m "Update portfolio"
 git push
 ```
+
+The README intentionally uses placeholders here instead of exposing local usernames or private network details.
 
 ---
 
@@ -763,8 +853,9 @@ Portfolio-latest/
 ├── documentation/
 │   └── screenshots/
 │       ├── homepage-hero.png
-│       ├── projects-section.png
+│       ├── featured-projects-section.png
 │       ├── live-ops-status.png
+│       ├── status-dashboard.png
 │       ├── github-actions-ci.png
 │       └── docker-compose-running.png
 ├── k8s/
@@ -776,6 +867,7 @@ Portfolio-latest/
 │   └── profile.jpg
 ├── templates/
 │   ├── profile.html
+│   ├── status.html
 │   ├── main_page.html
 │   └── login_page.html
 ├── terraform/
@@ -792,6 +884,8 @@ Portfolio-latest/
 └── README.md
 ```
 
+> Adjust this tree if the live repository uses slightly different filenames.
+
 ---
 
 ## 📈 DevOps and Cloud Skills Demonstrated
@@ -805,15 +899,16 @@ Portfolio-latest/
 | Local Hosting | Windows laptop as self-hosted server |
 | Public Exposure | Cloudflare Tunnel |
 | CI Validation | GitHub Actions |
-| Health Monitoring | `/health` route, Python checks, status JSON |
+| Health Monitoring | `/health`, `/ready`, Python checks, status JSON |
+| Status Dashboarding | Visual cards, response-time bars, health timeline, component table |
 | Scheduled Automation | Windows Task Scheduler |
-| Local AI Experimentation | Ollama, local model observations |
+| Local AI Experimentation | Ollama, local model observations, human-in-the-loop safety |
 | Automation | Ansible local deployment playbook |
 | Infrastructure as Code | Terraform showcase structure |
 | Container Orchestration Practice | Kubernetes manifests for local lab |
 | Troubleshooting | Docker Desktop, DNS, Cloudflare 502/1033, Git SSH credentials, Windows paths |
 | Documentation | README, local lab notes, screenshots, handover-friendly guides |
-| Operations Mindset | Service health, manual control, safe automation, human-in-the-loop AI |
+| Operations Mindset | Service health, safe automation, public-safe monitoring, incident-awareness |
 
 ---
 
@@ -861,9 +956,9 @@ Check whether the tunnel process, service, or scheduled task is running.
 
 ---
 
-### Website works but status card looks outdated
+### Website works but status dashboard looks outdated
 
-The health agent may not have been run recently.
+The health agent may not have run recently.
 
 Run:
 
@@ -873,7 +968,7 @@ python agents/portfolio_health_agent.py
 
 Then refresh the page.
 
-If the container does not see updated JSON data, check that `./data:/app/data` is mounted in `docker-compose.yml`.
+If the container does not see updated JSON data, check that the `data` directory is mounted in `docker-compose.yml`.
 
 ---
 
@@ -881,13 +976,7 @@ If the container does not see updated JSON data, check that `./data:/app/data` i
 
 The agent checks both local and public routes. Sometimes the host machine may briefly fail to resolve or check its own public domain even while the website works externally.
 
-For the public homepage, the displayed status focuses on:
-
-- local Flask app health
-- local `/health` endpoint
-- Docker Compose status
-
-This avoids showing misleading public route warnings to visitors.
+For the public dashboard, the displayed status focuses on safe and understandable operational checks rather than exposing raw internal diagnostics.
 
 ---
 
@@ -935,14 +1024,31 @@ Also confirm that:
 
 - the Windows laptop is awake
 - Docker Desktop is running
-- Ollama is available if the AI observation is required
+- the project path is correct
+- the `data` directory exists
+- Ollama is available if testing the optional AI observation layer
 - the local helper script exists on the Windows host
 
 ---
 
-## 🔐 Security and Safety Notes
+## 🔐 Security and Privacy Notes
 
-This project keeps automation conservative.
+This project keeps automation conservative and avoids exposing sensitive environment details.
+
+The public website and README should not expose:
+
+- internal IP addresses
+- private hostnames
+- Windows usernames
+- local folder paths that reveal personal information
+- raw logs
+- container IDs
+- Cloudflare tunnel tokens
+- API keys
+- SSH keys
+- email credentials
+- private environment variables
+- full error stack traces
 
 The local AI health agent does **not**:
 
@@ -960,7 +1066,7 @@ The agent only:
 - writes a local JSON file
 - optionally asks a local AI model for an experimental observation
 
-The public status card uses deterministic logic rather than AI-generated claims.
+The public status dashboard uses deterministic logic rather than AI-generated claims.
 
 This keeps the project human-in-the-loop and avoids unsafe automation.
 
@@ -970,11 +1076,13 @@ This keeps the project human-in-the-loop and avoids unsafe automation.
 
 Possible next steps:
 
-- add uptime history instead of only the latest status
+- add real uptime history instead of only latest status
+- store response-time history from the health agent
+- make the status dashboard graphs dynamic from JSON history
 - add a private admin-only status page
-- add structured logs for portfolio requests
-- add Prometheus metrics endpoint
-- add Grafana dashboard integration
+- add structured request logs
+- add a Prometheus-style `/metrics` endpoint
+- add Grafana dashboard integration for private viewing
 - add screenshot update checklist
 - add a small incident-history timeline
 - move future services into a homelab environment
@@ -1001,6 +1109,8 @@ Some of the real issues handled during the project included:
 - avoiding misleading AI-generated health summaries
 - separating factual monitoring logic from experimental AI observations
 - scheduling the health agent without committing machine-specific helper files
+- polishing the portfolio projects section without overloading visitors
+- building a public-safe status dashboard instead of exposing raw diagnostics
 - documenting the setup clearly enough that it can be repeated later
 
 This is the kind of work I want to keep improving in: building systems, breaking them safely, fixing them, documenting what happened, and making the next run smoother.
