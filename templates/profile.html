@@ -768,6 +768,96 @@
     .delay-2 { animation-delay: 0.24s; }
     .delay-3 { animation-delay: 0.36s; }
 
+
+
+    .behind-section {
+      margin-top: 80px;
+      padding: 72px 0;
+      border-top: 1px solid rgba(201, 168, 76, 0.18);
+    }
+
+    .behind-header {
+      max-width: 780px;
+      margin-bottom: 34px;
+    }
+
+    .behind-header .section-label {
+      color: var(--gold-light);
+    }
+
+    .behind-header h2 {
+      color: var(--lightest-slate);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin: 10px 0 16px;
+    }
+
+    .behind-header p {
+      color: var(--light-slate);
+      max-width: 760px;
+      line-height: 1.8;
+    }
+
+    .behind-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .behind-card {
+      background: rgba(17, 34, 64, 0.82);
+      border: 1px solid rgba(201, 168, 76, 0.22);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .behind-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201, 168, 76, 0.42);
+    }
+
+    .behind-card h3 {
+      color: var(--gold-light);
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .behind-card p {
+      color: var(--slate);
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .behind-card strong {
+      color: var(--lightest-slate);
+      font-weight: 600;
+    }
+
+    .status-link-wrap {
+      margin-top: 28px;
+    }
+
+    .status-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      border: 1px solid rgba(100, 255, 218, 0.35);
+      border-radius: 999px;
+      padding: 12px 18px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .status-link:hover {
+      transform: translateY(-2px);
+      background: rgba(100, 255, 218, 0.08);
+    }
+
     @media (max-width: 980px) {
       .hero {
         grid-template-columns: 1fr;
@@ -850,6 +940,14 @@
         align-items: stretch;
       }
     }
+  
+
+    @media (max-width: 900px) {
+      .behind-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 
@@ -1148,6 +1246,75 @@
 
       <p class="project-click-note">Click on any of the projects above to open.</p>
     </section>
+
+    <section class="page behind-section" id="behind-this-portfolio">
+      <div class="behind-header">
+        <p class="section-label">Behind This Portfolio</p>
+        <h2>More than a static profile page.</h2>
+        <p>
+          This portfolio is self-hosted and operated like a small production service.
+          It runs as a Flask application inside Docker Compose on my Windows laptop,
+          is exposed publicly through Cloudflare Tunnel, and is monitored by a local
+          Python health agent.
+        </p>
+      </div>
+
+      <div class="behind-grid">
+        <article class="behind-card">
+          <h3>Containerized Flask App</h3>
+          <p>
+            The website runs inside a Docker container, making the local environment
+            more consistent and easier to restart after changes or recovery.
+          </p>
+        </article>
+
+        <article class="behind-card">
+          <h3>Cloudflare Tunnel</h3>
+          <p>
+            Instead of opening router ports directly, the site is exposed through a
+            Cloudflare Tunnel service that is configured to auto-start on Windows.
+          </p>
+        </article>
+
+        <article class="behind-card">
+          <h3>Startup Recovery</h3>
+          <p>
+            A Windows startup recovery task checks Cloudflare Tunnel, waits for Docker,
+            restarts the Docker Compose service, and refreshes the health status after login.
+          </p>
+        </article>
+
+        <article class="behind-card">
+          <h3>Health Checks</h3>
+          <p>
+            The app includes <strong>/health</strong>, <strong>/ready</strong>, and
+            <strong>/status</strong> endpoints to separate basic application health
+            from operational readiness.
+          </p>
+        </article>
+
+        <article class="behind-card">
+          <h3>Local Monitoring Agent</h3>
+          <p>
+            A Python health agent checks the local app, health endpoint, Docker Compose,
+            and public route, then writes a local JSON status file for the website to display.
+          </p>
+        </article>
+
+        <article class="behind-card">
+          <h3>Experimental AI Layer</h3>
+          <p>
+            Ollama is used only as an experimental observation layer. The public status
+            still relies on deterministic checks instead of trusting AI-generated guesses.
+          </p>
+        </article>
+      </div>
+
+      <div class="status-link-wrap">
+        <a class="status-link" href="/status">View live portfolio status →</a>
+      </div>
+    </section>
+
 
     <div class="divider"></div>
 
