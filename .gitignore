@@ -23,3 +23,8 @@ migrations/versions/
 flask-portfolio/
 data/portfolio_status.json
 run_health_agent_hidden.vbs
+startup_recovery.ps1
+data/startup_recovery.log
+data/docker_recovery_output.log
+data/health_agent_recovery_output.log
+query
