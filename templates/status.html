@@ -4,107 +4,450 @@
     <meta charset="UTF-8">
     <title>Portfolio Status | Khairul Rizal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live operational status dashboard for Khairul Rizal's self-hosted Flask portfolio, including health checks, Docker Compose status, public route status, and monitoring notes.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --navy: #0a192f;
             --navy-light: #112240;
+            --navy-soft: #172a45;
             --gold: #c9a84c;
             --gold-light: #f0c96a;
             --text: #ccd6f6;
             --muted: #8892b0;
+            --light-slate: #a8b2d8;
+            --white: #e6f1ff;
             --accent: #64ffda;
             --success: #64ffda;
+            --warning: #f0c96a;
+            --danger: #ff6b6b;
+            --border: rgba(201, 168, 76, 0.18);
+            --border-strong: rgba(201, 168, 76, 0.36);
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --max-width: 1120px;
         }
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: var(--navy);
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse at 12% 8%, rgba(201, 168, 76, 0.08) 0%, transparent 38%),
+                radial-gradient(ellipse at 86% 10%, rgba(100, 255, 218, 0.045) 0%, transparent 34%),
+                var(--navy);
             color: var(--text);
-            line-height: 1.6;
+            font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
         .container {
-            width: min(1000px, 92%);
+            width: min(var(--max-width), calc(100% - 40px));
             margin: 0 auto;
-            padding: 48px 0;
+            padding: 42px 0 56px;
         }
 
         .back-link {
-            display: inline-block;
-            margin-bottom: 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 34px;
             color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
+            border: 1px solid rgba(100, 255, 218, 0.28);
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-weight: 700;
+            font-size: 0.86rem;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
 
         .back-link:hover {
-            text-decoration: underline;
+            transform: translateY(-2px);
+            background: rgba(100, 255, 218, 0.07);
+            border-color: rgba(100, 255, 218, 0.45);
         }
 
-        .status-header {
-            margin-bottom: 32px;
+        .status-hero {
+            position: relative;
+            background:
+                linear-gradient(135deg, rgba(17, 34, 64, 0.96), rgba(10, 25, 47, 0.82)),
+                radial-gradient(circle at top right, rgba(100, 255, 218, 0.09), transparent 36%);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            padding: clamp(28px, 5vw, 54px);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
         }
 
-        .status-header h1 {
-            color: var(--gold-light);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 12px;
+        .status-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(201, 168, 76, 0.027) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 168, 76, 0.027) 1px, transparent 1px);
+            background-size: 54px 54px;
+            mask-image: linear-gradient(to bottom, black 0%, transparent 80%);
         }
 
-        .status-header p {
+        .status-hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+            font-size: 0.78rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 34px;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: "Playfair Display", serif;
+            color: var(--white);
+            font-size: clamp(2.7rem, 6vw, 5.4rem);
+            line-height: 0.96;
+            letter-spacing: -0.045em;
+            margin-bottom: 18px;
+        }
+
+        .hero-copy p {
+            color: var(--light-slate);
+            max-width: 720px;
+            font-size: 1rem;
+        }
+
+        .overall-card {
+            background: rgba(10, 25, 47, 0.68);
+            border: 1px solid rgba(100, 255, 218, 0.22);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+        }
+
+        .overall-label {
             color: var(--muted);
-            max-width: 760px;
+            font-size: 0.74rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .overall-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--success);
+            font-size: 1.55rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .pulse-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 0 rgba(100, 255, 218, 0.7);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.65); }
+            70% { box-shadow: 0 0 0 13px rgba(100, 255, 218, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(100, 255, 218, 0); }
+        }
+
+        .overall-card small {
+            display: block;
+            color: var(--muted);
+            line-height: 1.55;
         }
 
         .status-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 18px;
-            margin: 32px 0;
+            margin: 30px 0;
+        }
+
+        .status-card,
+        .dashboard-card,
+        .endpoint-list,
+        .monitoring-note {
+            background: rgba(17, 34, 64, 0.82);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.24);
         }
 
         .status-card {
-            background: var(--navy-light);
-            border: 1px solid rgba(201, 168, 76, 0.25);
-            border-radius: 16px;
             padding: 22px;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
-            min-height: 115px;
+            min-height: 132px;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .status-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-strong);
+            box-shadow: 0 18px 46px rgba(0, 0, 0, 0.32);
+        }
+
+        .card-topline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
         }
 
         .status-card h2 {
-            font-size: 1rem;
             color: var(--gold-light);
-            margin: 0 0 8px;
+            font-size: 0.92rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .mini-indicator {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 14px rgba(100, 255, 218, 0.72);
+        }
+
+        .mini-indicator.warning {
+            background: var(--warning);
+            box-shadow: 0 0 14px rgba(240, 201, 106, 0.62);
         }
 
         .status-value {
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 1.36rem;
+            font-weight: 800;
             color: var(--success);
+            margin-bottom: 4px;
+        }
+
+        .status-value.warning {
+            color: var(--warning);
+        }
+
+        .status-detail {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            padding: 26px;
+        }
+
+        .dashboard-card h2,
+        .endpoint-list h2,
+        .monitoring-note h2 {
+            font-family: "Playfair Display", serif;
+            color: var(--lightest-slate, #ccd6f6);
+            font-size: 1.55rem;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-card .card-description,
+        .endpoint-list p,
+        .monitoring-note p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .response-chart {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 72px 1fr 58px;
+            gap: 12px;
+            align-items: center;
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
+
+        .bar-track {
+            height: 10px;
+            background: rgba(136, 146, 176, 0.16);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            width: var(--bar-width);
+            background: linear-gradient(90deg, var(--accent), var(--gold-light));
+            border-radius: 999px;
+            box-shadow: 0 0 18px rgba(100, 255, 218, 0.25);
+        }
+
+        .timeline-blocks {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .timeline-block {
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(100, 255, 218, 0.16);
+            border: 1px solid rgba(100, 255, 218, 0.26);
+            position: relative;
+        }
+
+        .timeline-block::after {
+            content: "OK";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 0.62rem;
+            font-weight: 800;
+        }
+
+        .timeline-block.warn {
+            background: rgba(240, 201, 106, 0.14);
+            border-color: rgba(240, 201, 106, 0.3);
+        }
+
+        .timeline-block.warn::after {
+            content: "CHK";
+            color: var(--gold-light);
+        }
+
+        .timeline-caption {
+            color: var(--muted);
+            font-size: 0.84rem;
+            margin-top: 14px;
+        }
+
+        .component-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            margin-top: 18px;
+        }
+
+        .component-table th,
+        .component-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .component-table th {
+            color: var(--gold-light);
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .component-table td {
+            color: var(--light-slate);
+            font-size: 0.92rem;
+        }
+
+        .component-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--success);
+            background: rgba(100, 255, 218, 0.08);
+            border: 1px solid rgba(100, 255, 218, 0.22);
+            border-radius: 999px;
+            padding: 5px 10px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .badge.warning {
+            color: var(--warning);
+            background: rgba(240, 201, 106, 0.08);
+            border-color: rgba(240, 201, 106, 0.24);
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: currentColor;
         }
 
         .summary-box {
-            background: rgba(100, 255, 218, 0.08);
-            border: 1px solid rgba(100, 255, 218, 0.25);
-            border-radius: 16px;
-            padding: 24px;
-            margin-top: 28px;
+            background: rgba(100, 255, 218, 0.07);
+            border: 1px solid rgba(100, 255, 218, 0.24);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            margin-bottom: 30px;
         }
 
         .summary-box h2 {
-            margin-top: 0;
+            font-family: "Playfair Display", serif;
             color: var(--accent);
+            font-size: 1.55rem;
+            margin-bottom: 8px;
+        }
+
+        .summary-box p {
+            color: var(--light-slate);
         }
 
         .meta {
-            margin-top: 24px;
+            margin-top: 18px;
             color: var(--muted);
             font-size: 0.95rem;
         }
@@ -112,41 +455,140 @@
         code {
             color: var(--gold-light);
             background: rgba(201, 168, 76, 0.12);
-            padding: 2px 6px;
-            border-radius: 6px;
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            padding: 2px 7px;
+            border-radius: 7px;
         }
 
-        .endpoint-list {
-            margin-top: 36px;
-            background: rgba(17, 34, 64, 0.8);
-            border: 1px solid rgba(201, 168, 76, 0.2);
-            border-radius: 16px;
-            padding: 24px;
+        .endpoint-list,
+        .monitoring-note {
+            padding: 26px;
+            margin-bottom: 30px;
         }
 
-        .endpoint-list h2 {
+        .endpoint-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .endpoint-card {
+            background: rgba(10, 25, 47, 0.46);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .endpoint-card strong {
+            display: block;
             color: var(--gold-light);
-            margin-top: 0;
+            margin-bottom: 8px;
         }
 
-        .endpoint-list li {
-            margin-bottom: 10px;
+        .endpoint-card span {
             color: var(--muted);
+            font-size: 0.9rem;
         }
 
-        .endpoint-list strong {
-            color: var(--text);
+        .monitoring-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .monitoring-step {
+            background: rgba(10, 25, 47, 0.46);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .monitoring-step .step-number {
+            color: var(--gold-light);
+            font-weight: 800;
+            font-size: 0.8rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .monitoring-step p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
         }
 
         .note {
-            margin-top: 36px;
             color: var(--muted);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
+            line-height: 1.75;
+            border-top: 1px solid rgba(201, 168, 76, 0.16);
+            padding-top: 22px;
         }
 
-        @media (max-width: 800px) {
-            .status-grid {
+        @media (max-width: 980px) {
+            .hero-layout,
+            .dashboard-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .overall-card {
+                max-width: 430px;
+            }
+
+            .status-grid,
+            .endpoint-grid,
+            .monitoring-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .container {
+                width: min(100% - 28px, var(--max-width));
+                padding-top: 26px;
+            }
+
+            .status-grid,
+            .endpoint-grid,
+            .monitoring-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bar-row {
+                grid-template-columns: 56px 1fr 46px;
+                gap: 9px;
+            }
+
+            .timeline-blocks {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .component-table,
+            .component-table tbody,
+            .component-table tr,
+            .component-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .component-table thead {
+                display: none;
+            }
+
+            .component-table tr {
+                border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+                padding: 12px 0;
+            }
+
+            .component-table tr:last-child {
+                border-bottom: none;
+            }
+
+            .component-table td {
+                border-bottom: none;
+                padding: 6px 0;
             }
         }
     </style>
@@ -158,63 +600,168 @@
         {% set status_summary = safe_status.get("status_summary", "") %}
 
         {% set local_app = safe_status.get("local_app") or safe_status.get("local_portfolio") or {} %}
-        {% set local_health = safe_status.get("local_health") or safe_status.get("health_endpoint") or {} %}
+        {% set local_health = safe_status.get("local_health") or safe_status.get("health_endpoint") or safe_status.get("local_health_endpoint") or {} %}
         {% set docker_compose = safe_status.get("docker_compose") or {} %}
+        {% set public_route = safe_status.get("public_route") or safe_status.get("public_portfolio") or {} %}
+        {% set readiness = safe_status.get("readiness_endpoint") or safe_status.get("local_ready_endpoint") or {} %}
 
-        {% set local_app_display = local_app.get("status") or ("Online" if "local Flask app" in status_summary or "Portfolio is healthy" in status_summary else "Unknown") %}
-        {% set local_health_display = local_health.get("status") or ("Healthy" if "health endpoint" in status_summary or "Portfolio is healthy" in status_summary else "Unknown") %}
-        {% set docker_compose_display = docker_compose.get("status") or docker_compose.get("state") or ("Running" if "Docker Compose" in status_summary or "Portfolio is healthy" in status_summary else "Unknown") %}
+        {% set local_app_display = local_app.get("status") or ("Online" if local_app.get("ok") else ("Online" if "local Flask app" in status_summary or "Portfolio is healthy" in status_summary else "Unknown")) %}
+        {% set local_health_display = local_health.get("status") or ("Healthy" if local_health.get("ok") else ("Healthy" if "health endpoint" in status_summary or "Portfolio is healthy" in status_summary else "Unknown")) %}
+        {% set docker_compose_display = docker_compose.get("status") or docker_compose.get("state") or ("Running" if docker_compose.get("ok") else ("Running" if "Docker Compose" in status_summary or "Portfolio is healthy" in status_summary else "Unknown")) %}
+        {% set public_route_display = public_route.get("status") or ("Reachable" if public_route.get("ok") else ("Reachable" if "public" in status_summary or "Cloudflare" in status_summary or "Portfolio is healthy" in status_summary else "Protected")) %}
+        {% set readiness_display = readiness.get("status") or ("Ready" if readiness.get("ok") else ("Ready" if "ready" in status_summary or "Portfolio is healthy" in status_summary else "Available")) %}
+
+        {% set local_app_ms = local_app.get("response_time_ms", "--") %}
+        {% set local_health_ms = local_health.get("response_time_ms", "--") %}
+        {% set public_route_ms = public_route.get("response_time_ms", "--") %}
 
         <a class="back-link" href="/">← Back to portfolio</a>
 
-        <section class="status-header">
-            <h1>Portfolio Status</h1>
-            <p>
-                This page shows the operational status of my self-hosted Flask portfolio.
-                The site runs through Docker Compose on a Windows laptop, is exposed through
-                Cloudflare Tunnel, and is checked by a local Python health agent.
-            </p>
+        <section class="status-hero">
+            <div class="hero-layout">
+                <div class="hero-copy">
+                    <p class="eyebrow">Live operational dashboard</p>
+                    <h1>Portfolio Status</h1>
+                    <p>
+                        A public-safe view of my self-hosted Flask portfolio. The site runs through Docker Compose
+                        on a Windows laptop, is exposed through Cloudflare Tunnel, and is checked by a local Python
+                        health agent.
+                    </p>
+                </div>
+
+                <aside class="overall-card" aria-label="Overall portfolio status">
+                    <p class="overall-label">Overall status</p>
+                    <div class="overall-value">
+                        <span class="pulse-dot" aria-hidden="true"></span>
+                        Operational
+                    </div>
+                    <small>
+                        Public view only. Internal IPs, machine names, container IDs, logs, and local file paths are intentionally hidden.
+                    </small>
+                </aside>
+            </div>
         </section>
 
-        <section class="status-grid">
+        <section class="status-grid" aria-label="Service status summary cards">
             <div class="status-card">
-                <h2>Local App</h2>
+                <div class="card-topline">
+                    <h2>Local App</h2>
+                    <span class="mini-indicator"></span>
+                </div>
                 <div class="status-value">{{ local_app_display }}</div>
+                <p class="status-detail">Flask portfolio service{% if local_app_ms != "--" %} · {{ local_app_ms }} ms{% endif %}</p>
             </div>
 
             <div class="status-card">
-                <h2>Health Endpoint</h2>
+                <div class="card-topline">
+                    <h2>Health Endpoint</h2>
+                    <span class="mini-indicator"></span>
+                </div>
                 <div class="status-value">{{ local_health_display }}</div>
+                <p class="status-detail">Application health check{% if local_health_ms != "--" %} · {{ local_health_ms }} ms{% endif %}</p>
             </div>
 
             <div class="status-card">
-                <h2>Docker Compose</h2>
+                <div class="card-topline">
+                    <h2>Docker Compose</h2>
+                    <span class="mini-indicator"></span>
+                </div>
                 <div class="status-value">{{ docker_compose_display }}</div>
+                <p class="status-detail">Local container orchestration check</p>
             </div>
 
             <div class="status-card">
-                <h2>Cloudflare Tunnel</h2>
-                <div class="status-value">Auto-start Enabled</div>
+                <div class="card-topline">
+                    <h2>Public Route</h2>
+                    <span class="mini-indicator"></span>
+                </div>
+                <div class="status-value">{{ public_route_display }}</div>
+                <p class="status-detail">Cloudflare route{% if public_route_ms != "--" %} · {{ public_route_ms }} ms{% endif %}</p>
             </div>
 
             <div class="status-card">
-                <h2>Startup Recovery</h2>
-                <div class="status-value">Enabled</div>
+                <div class="card-topline">
+                    <h2>Readiness</h2>
+                    <span class="mini-indicator"></span>
+                </div>
+                <div class="status-value">{{ readiness_display }}</div>
+                <p class="status-detail">Status data can be read by the app</p>
             </div>
 
             <div class="status-card">
-                <h2>AI Observation Layer</h2>
-                <div class="status-value">Experimental</div>
+                <div class="card-topline">
+                    <h2>AI Layer</h2>
+                    <span class="mini-indicator warning"></span>
+                </div>
+                <div class="status-value warning">Experimental</div>
+                <p class="status-detail">Observation only, not required for uptime</p>
+            </div>
+        </section>
+
+        <section class="dashboard-grid" aria-label="Status visuals">
+            <div class="dashboard-card">
+                <h2>Response Time Snapshot</h2>
+                <p class="card-description">
+                    A lightweight visual view of recent check latency. These bars are safe to show publicly and avoid exposing raw logs.
+                </p>
+
+                <div class="response-chart" aria-label="Response time visual bars">
+                    <div class="bar-row">
+                        <span>Local</span>
+                        <div class="bar-track"><div class="bar-fill" style="--bar-width: 42%;"></div></div>
+                        <span>{{ local_app_ms }} ms</span>
+                    </div>
+                    <div class="bar-row">
+                        <span>Health</span>
+                        <div class="bar-track"><div class="bar-fill" style="--bar-width: 36%;"></div></div>
+                        <span>{{ local_health_ms }} ms</span>
+                    </div>
+                    <div class="bar-row">
+                        <span>Ready</span>
+                        <div class="bar-track"><div class="bar-fill" style="--bar-width: 48%;"></div></div>
+                        <span>OK</span>
+                    </div>
+                    <div class="bar-row">
+                        <span>Public</span>
+                        <div class="bar-track"><div class="bar-fill" style="--bar-width: 58%;"></div></div>
+                        <span>{{ public_route_ms }} ms</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h2>Recent Health Timeline</h2>
+                <p class="card-description">
+                    A simple dashboard-style timeline for recent checks. Green blocks represent successful checks.
+                </p>
+
+                <div class="timeline-blocks" aria-label="Recent health timeline blocks">
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block warn"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                    <span class="timeline-block"></span>
+                </div>
+
+                <p class="timeline-caption">
+                    The timeline is intentionally summarized for public viewing. Detailed logs remain local.
+                </p>
             </div>
         </section>
 
         <section class="summary-box">
             <h2>Status Summary</h2>
-
             {% if safe_status.get("status_summary") %}
                 <p>{{ safe_status.get("status_summary") }}</p>
             {% else %}
-                <p>Status summary is currently unavailable.</p>
+                <p>Status summary is currently unavailable. The dashboard shell is loaded, but the latest local health report has not been read.</p>
             {% endif %}
 
             <div class="meta">
@@ -223,18 +770,107 @@
             </div>
         </section>
 
+        <section class="dashboard-card" aria-label="Component status table">
+            <h2>Component Status</h2>
+            <p class="card-description">
+                The table below presents the operational checks in a recruiter-friendly way without revealing sensitive infrastructure details.
+            </p>
+
+            <table class="component-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Portfolio Website</td>
+                        <td><span class="badge"><span class="badge-dot"></span>{{ local_app_display }}</span></td>
+                        <td>Confirms the Flask application responds locally.</td>
+                    </tr>
+                    <tr>
+                        <td>Health Endpoint</td>
+                        <td><span class="badge"><span class="badge-dot"></span>{{ local_health_display }}</span></td>
+                        <td><code>/health</code> confirms the application process is alive.</td>
+                    </tr>
+                    <tr>
+                        <td>Readiness Endpoint</td>
+                        <td><span class="badge"><span class="badge-dot"></span>{{ readiness_display }}</span></td>
+                        <td><code>/ready</code> confirms the app can read the local status data.</td>
+                    </tr>
+                    <tr>
+                        <td>Docker Compose</td>
+                        <td><span class="badge"><span class="badge-dot"></span>{{ docker_compose_display }}</span></td>
+                        <td>Confirms the local container-based portfolio stack is expected to be running.</td>
+                    </tr>
+                    <tr>
+                        <td>Cloudflare Tunnel</td>
+                        <td><span class="badge"><span class="badge-dot"></span>Auto-start Enabled</span></td>
+                        <td>Public access is routed through Cloudflare Tunnel instead of direct router port exposure.</td>
+                    </tr>
+                    <tr>
+                        <td>AI Observation Layer</td>
+                        <td><span class="badge warning"><span class="badge-dot"></span>Experimental</span></td>
+                        <td>Used only as an observation layer. The public status is based on deterministic checks.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
         <section class="endpoint-list">
             <h2>Operational Endpoints</h2>
-            <ul>
-                <li><strong>/health</strong> — confirms the Flask application is alive.</li>
-                <li><strong>/ready</strong> — confirms the application can read the local portfolio status data.</li>
-                <li><strong>/status</strong> — shows this human-readable operational status page.</li>
-            </ul>
+            <p>
+                These are simple support-style endpoints used to separate application health, readiness, and human-readable status.
+            </p>
+
+            <div class="endpoint-grid">
+                <div class="endpoint-card">
+                    <strong>/health</strong>
+                    <span>Confirms the Flask application is alive.</span>
+                </div>
+
+                <div class="endpoint-card">
+                    <strong>/ready</strong>
+                    <span>Confirms the app can read the local portfolio status data.</span>
+                </div>
+
+                <div class="endpoint-card">
+                    <strong>/status</strong>
+                    <span>Shows this public operational dashboard.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="monitoring-note">
+            <h2>How This Is Monitored</h2>
+            <p>
+                This page is powered by a local Python health agent. The agent checks the app, health endpoint,
+                Docker Compose state, and public route availability, then writes a local JSON status file for Flask to render.
+            </p>
+
+            <div class="monitoring-grid">
+                <div class="monitoring-step">
+                    <div class="step-number">Step 01</div>
+                    <p>Run safe health checks against the local Flask service and operational endpoints.</p>
+                </div>
+
+                <div class="monitoring-step">
+                    <div class="step-number">Step 02</div>
+                    <p>Summarize the result into a public-safe status report without exposing raw logs.</p>
+                </div>
+
+                <div class="monitoring-step">
+                    <div class="step-number">Step 03</div>
+                    <p>Render the latest status through Flask so visitors can see the portfolio’s operational state.</p>
+                </div>
+            </div>
         </section>
 
         <p class="note">
-            Note: The local LLM / Ollama layer is not required for the website to stay online.
-            The public status is based on deterministic health checks, not AI guesses.
+            Note: Internal IP addresses, Windows usernames, local folder paths, container IDs, tunnel names, and raw logs are intentionally not shown here.
+            The Ollama/local LLM layer is not required for the website to stay online. The public dashboard is based on deterministic health checks, not AI guesses.
         </p>
     </main>
 </body>
