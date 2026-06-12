@@ -462,17 +462,16 @@
     /* PROJECTS */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 22px;
     }
 
     .project-card {
-      aspect-ratio: 1 / 1;
-      min-height: 330px;
+      min-height: 420px;
       background: rgba(17, 34, 64, 0.82);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 26px;
+      padding: 28px;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -552,6 +551,18 @@
       line-height: 1.65;
     }
 
+    .project-highlights {
+      margin: 18px 0 0 18px;
+      padding: 0;
+      color: var(--light-slate);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+
+    .project-highlights li {
+      margin-bottom: 7px;
+    }
+
     .project-tech {
       display: flex;
       flex-wrap: wrap;
@@ -559,6 +570,35 @@
       margin-top: 18px;
     }
 
+    .project-links-inline {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(201,168,76,0.45);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+    }
+
+    .project-link:hover {
+      background: rgba(201,168,76,0.1);
+      color: var(--gold-light);
+      transform: translateY(-1px);
+    }
 
     .project-click-note {
       margin-top: 18px;
@@ -568,6 +608,34 @@
       text-transform: uppercase;
       font-weight: 600;
     }
+
+    .other-work {
+      margin-top: 34px;
+      background: rgba(17, 34, 64, 0.62);
+      border: 1px solid rgba(201,168,76,0.14);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+    }
+
+    .other-work h3 {
+      font-family: "Playfair Display", serif;
+      color: var(--lightest-slate);
+      font-size: 1.35rem;
+      margin-bottom: 14px;
+    }
+
+    .other-work ul {
+      color: var(--slate);
+      line-height: 1.8;
+      margin-left: 18px;
+      padding: 0;
+    }
+
+    .other-work strong {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
 
 
     /* LIVE OPS STATUS */
@@ -918,8 +986,7 @@
       }
 
       .project-card {
-        aspect-ratio: auto;
-        min-height: 310px;
+        min-height: auto;
       }
 
       .timeline {
@@ -1122,62 +1189,56 @@
       <div class="section-heading">
         <div>
           <p class="section-label">What I have built</p>
-          <h2>Projects</h2>
+          <h2>Featured Projects</h2>
         </div>
         <p>
-          Each square represents a practical milestone: build the app, containerise it, automate delivery,
-          monitor behaviour, troubleshoot failures, and document the journey.
+          A compact selection of hands-on projects where I practise cloud support,
+          DevOps workflows, automation, monitoring, reliability, and documentation.
         </p>
       </div>
 
       <div class="projects-grid">
-        <article class="project-card" data-link="https://github.com/AnarkeyV/capstone" tabindex="0" role="link" aria-label="Open The Shirt Bar Capstone">
-          <div class="project-content">
-            <div class="project-number">Project 01</div>
-            <h3>The Shirt Bar Capstone</h3>
-            <p>
-              Cloud-native e-commerce proof of concept based on a real local business scenario, covering Azure deployment,
-              containerisation, Kubernetes manifests, CI/CD practices, and operational handover.
-            </p>
-            <div class="project-tech">
-              <span class="tech-tag">Azure</span>
-              <span class="tech-tag">AKS</span>
-              <span class="tech-tag">ACR</span>
-              <span class="tech-tag">Docker</span>
-              <span class="tech-tag">Terraform</span>
-              <span class="tech-tag">GitHub Actions</span>
-            </div>
-          </div>
-        </article>
-
         <article class="project-card" data-link="https://github.com/AnarkeyV/job-scraper-service" tabindex="0" role="link" aria-label="Open Job Scraper Service">
           <div class="project-content">
-            <div class="project-number">Project 02</div>
+            <div class="project-number">Featured 01</div>
             <h3>Job Scraper Service</h3>
             <p>
-              Local-first job alert platform with subscription inputs, provider filtering, scheduled scans,
-              HTML email reports, CI/CD validation, monitoring readiness, and local deployment automation.
+              A local-first FastAPI app that scans job sources, generates mobile-friendly
+              HTML reports, and sends job results by email.
             </p>
+
             <div class="project-tech">
               <span class="tech-tag">FastAPI</span>
               <span class="tech-tag">SQLite</span>
               <span class="tech-tag">Docker</span>
+              <span class="tech-tag">GitHub Actions</span>
               <span class="tech-tag">Jenkins</span>
               <span class="tech-tag">Prometheus</span>
               <span class="tech-tag">Grafana</span>
               <span class="tech-tag">Ansible</span>
             </div>
+
+            <ul class="project-highlights">
+              <li>Built automated job scanning and report generation</li>
+              <li>Added CI/CD validation using GitHub Actions and Jenkins</li>
+              <li>Integrated monitoring readiness with Prometheus and Grafana</li>
+            </ul>
+          </div>
+
+          <div class="project-links-inline">
+            <a class="project-link" href="https://github.com/AnarkeyV/job-scraper-service" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </article>
 
         <article class="project-card" data-link="https://github.com/AnarkeyV/chaos-engineering-sandbox" tabindex="0" role="link" aria-label="Open Chaos Engineering Sandbox">
           <div class="project-content">
-            <div class="project-number">Project 03</div>
+            <div class="project-number">Featured 02</div>
             <h3>Chaos Engineering Sandbox</h3>
             <p>
-              A resilience-focused learning sandbox for building, monitoring, breaking, recovering, validating,
-              and improving a cloud-native style system under failure scenarios.
+              A resilience-focused sandbox for testing dependency failures, service health,
+              monitoring dashboards, alerting behaviour, and recovery workflows.
             </p>
+
             <div class="project-tech">
               <span class="tech-tag">FastAPI</span>
               <span class="tech-tag">Docker</span>
@@ -1185,67 +1246,96 @@
               <span class="tech-tag">Kind</span>
               <span class="tech-tag">PostgreSQL</span>
               <span class="tech-tag">Redis</span>
+              <span class="tech-tag">Prometheus</span>
               <span class="tech-tag">Grafana</span>
             </div>
+
+            <ul class="project-highlights">
+              <li>Created dependency health checks for Redis and PostgreSQL</li>
+              <li>Validated alerts for failure and recovery scenarios</li>
+              <li>Used dashboards to observe degradation and system behaviour</li>
+            </ul>
+          </div>
+
+          <div class="project-links-inline">
+            <a class="project-link" href="https://github.com/AnarkeyV/chaos-engineering-sandbox" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </article>
 
-        <article class="project-card" data-link="https://github.com/AnarkeyV/DevOpsTask" tabindex="0" role="link" aria-label="Open DevOpsTask CI/CD">
+        <article class="project-card" data-link="https://github.com/AnarkeyV/capstone" tabindex="0" role="link" aria-label="Open The Shirt Bar Capstone Project">
           <div class="project-content">
-            <div class="project-number">Project 04</div>
-            <h3>DevOpsTask CI/CD</h3>
+            <div class="project-number">Featured 03</div>
+            <h3>The Shirt Bar Capstone</h3>
             <p>
-              Flask application project focused on Docker, Azure DevOps pipeline work, Jenkins validation,
-              Kubernetes deployment practice, Terraform exposure, and CI/CD troubleshooting.
+              A cloud-native e-commerce proof of concept based on a local business scenario,
+              focused on deployment, containerisation, CI/CD, and operational handover.
             </p>
+
             <div class="project-tech">
-              <span class="tech-tag">Flask</span>
+              <span class="tech-tag">Azure</span>
+              <span class="tech-tag">AKS</span>
+              <span class="tech-tag">ACR</span>
               <span class="tech-tag">Docker</span>
-              <span class="tech-tag">Azure DevOps</span>
-              <span class="tech-tag">Jenkins</span>
-              <span class="tech-tag">Kubernetes</span>
               <span class="tech-tag">Terraform</span>
+              <span class="tech-tag">GitHub Actions</span>
+              <span class="tech-tag">Kubernetes</span>
             </div>
+
+            <ul class="project-highlights">
+              <li>Practised cloud deployment and container workflows</li>
+              <li>Prepared project setup guides and presentation materials</li>
+              <li>Focused on explaining technical work clearly to non-technical users</li>
+            </ul>
+          </div>
+
+          <div class="project-links-inline">
+            <a class="project-link" href="https://github.com/AnarkeyV/capstone" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </article>
 
-        <article class="project-card" data-link="https://github.com/AnarkeyV/Portfolio-latest" tabindex="0" role="link" aria-label="Open Flask Portfolio Website">
+        <article class="project-card" data-link="https://github.com/AnarkeyV/Portfolio-latest" tabindex="0" role="link" aria-label="Open Portfolio Website and Live Status Page">
           <div class="project-content">
-            <div class="project-number">Project 05</div>
-            <h3>Flask Portfolio Website</h3>
+            <div class="project-number">Featured 04</div>
+            <h3>Portfolio Website + Live Status Page</h3>
             <p>
-              This website itself: a Flask app containerised with Docker Compose, self-hosted on a Windows laptop,
-              accessed through Cloudflare Tunnel, and managed through practical deployment troubleshooting.
+              This portfolio itself: a Flask app containerised with Docker Compose,
+              exposed through Cloudflare Tunnel, and supported by a local health/status layer.
             </p>
+
             <div class="project-tech">
               <span class="tech-tag">Flask</span>
               <span class="tech-tag">Docker Compose</span>
               <span class="tech-tag">Cloudflare Tunnel</span>
               <span class="tech-tag">Windows</span>
-              <span class="tech-tag">SSH</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Health Checks</span>
             </div>
-          </div>
-        </article>
 
-        <article class="project-card" data-link="https://github.com/AnarkeyV" tabindex="0" role="link" aria-label="Open GitHub Project Hub">
-          <div class="project-content">
-            <div class="project-number">Profile</div>
-            <h3>GitHub Project Hub</h3>
-            <p>
-              Central profile containing my DevOps, cloud support, automation, CI/CD, monitoring,
-              documentation, and learning-in-public projects.
-            </p>
-            <div class="project-tech">
-              <span class="tech-tag">GitHub</span>
-              <span class="tech-tag">Documentation</span>
-              <span class="tech-tag">Portfolio</span>
-              <span class="tech-tag">Learning in Public</span>
-            </div>
+            <ul class="project-highlights">
+              <li>Built a personal profile page for DevOps and Cloud Support roles</li>
+              <li>Added a live status page to show operational awareness</li>
+              <li>Used Git and GitHub to version and manage updates</li>
+            </ul>
+          </div>
+
+          <div class="project-links-inline">
+            <a class="project-link" href="https://github.com/AnarkeyV/Portfolio-latest" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="project-link" href="/status">Live Status</a>
           </div>
         </article>
       </div>
 
-      <p class="project-click-note">Click on any of the projects above to open.</p>
+      <div class="other-work">
+        <h3>Other Technical Work</h3>
+        <ul>
+          <li><strong>DevOpsTask CI/CD Lab:</strong> Flask, Docker, Azure DevOps, Jenkins, Kubernetes, Terraform exposure, and smoke testing.</li>
+          <li><strong>Azure Practice Labs:</strong> Networking, RBAC, storage, monitoring, backup, and cloud support fundamentals.</li>
+          <li><strong>Kubernetes Practice:</strong> Deployments, services, container testing, local cluster troubleshooting, and port-forwarding.</li>
+          <li><strong>Jenkins Validation Workflows:</strong> Pipeline creation, Docker image testing, Git troubleshooting, and basic automation checks.</li>
+        </ul>
+      </div>
+
+      <p class="project-click-note">Click a project card or button to open the related page.</p>
     </section>
 
     <section class="page behind-section" id="behind-this-portfolio">
