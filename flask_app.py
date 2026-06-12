@@ -204,23 +204,60 @@ with app.app_context():
 
 # ── Health check endpoint ─────────────────────────────────────────────────────
 @app.route("/health")
+@limiter.exempt
 def health():
-    from flask import jsonify
-    try:
-        # Test database connection
-        db.session.execute(db.text('SELECT 1'))
-        return jsonify({
-            "status": "healthy",
-            "database": "connected",
-            "version": "1.0.0"
-        }), 200
-    except Exception as e:
-        return jsonify({
-            "status": "unhealthy",
-            "database": "disconnected",
-            "error": str(e)
-        }), 500
+    return {
+        "status": "ok",
+        "service": "portfolio",
+        "message": "Flask application is running",
+    }, 200
 
+@app.route("/ready")
+@limiter.exempt
+def ready():
+    status_file = Path(__file__).resolve().parent / "data" / "portfolio_status.json"
+
+    readiness_checks = {
+        "flask_app": "ready",
+        "status_file_exists": status_file.exists(),
+        "status_file_readable": False,
+    }
+
+    if status_file.exists():
+        try:
+            json.loads(status_file.read_text(encoding="utf-8"))
+            readiness_checks["status_file_readable"] = True
+        except Exception:
+            readiness_checks["status_file_readable"] = False
+
+    is_ready = (
+        readiness_checks["flask_app"] == "ready"
+        and readiness_checks["status_file_exists"]
+        and readiness_checks["status_file_readable"]
+    )
+
+    return {
+        "status": "ready" if is_ready else "not_ready",
+        "service": "portfolio",
+        "checks": readiness_checks,
+    }, 200 if is_ready else 503
+
+@app.route("/status")
+@limiter.exempt
+def status():
+    status_file = Path(__file__).resolve().parent / "data" / "portfolio_status.json"
+    portfolio_status = None
+
+    if status_file.exists():
+        try:
+            portfolio_status = json.loads(status_file.read_text(encoding="utf-8"))
+        except Exception as error:
+            portfolio_status = {
+                "checked_at": "Unavailable",
+                "status_summary": f"Unable to read local status file: {error}",
+            }
+
+    return render_template("status.html", portfolio_status=portfolio_status)
 
 # ── Portfolio / profile page (main landing page) ─────────────────────────────
 @app.route("/")
